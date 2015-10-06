@@ -34,10 +34,20 @@ public class SimpleRedditModel {
 	 */
 	private int linkCount;
 
+	/**
+	 * Link that is currently being viewed
+	 */
+	private Link currentLink;
+
+	private int currentLinkIndex;
+
 	public SimpleRedditModel() {
 		this.links = new ArrayList<Link>();
 		this.linkCount = 0;
 		writeToHeadersFile("User-Agent:desktop:com.simplereddit:v0.1");
+		retrieveFrontPage();
+		currentLinkIndex = 0;
+		currentLink = links.get(currentLinkIndex);
 	}
 
 	/**
@@ -121,6 +131,28 @@ public class SimpleRedditModel {
 				SimpleRedditConstants.HEADERS_FILE);
 		JSONObject page = new JSONObject(prevPageJSONString);
 		addPageToLinkArray(page);
+	}
+
+	public Link getNextLink() {
+		if (currentLinkIndex >= LINKS_PER_PAGE - 1) {
+			currentLinkIndex = -1;
+			retrieveNextPage();
+		}
+		this.currentLink = links.get(++currentLinkIndex);
+		return this.currentLink;
+	}
+
+	public Link getPreviousLink() {
+		if (currentLinkIndex == 0) {
+			retrievePreviousPage();
+			currentLinkIndex = 1;
+		}
+		this.currentLink = links.get(--currentLinkIndex);
+		return this.currentLink;
+	}
+
+	public Link getCurrentLink() {
+		return this.currentLink;
 	}
 
 	/**
@@ -226,8 +258,9 @@ public class SimpleRedditModel {
 	}
 
 	/**
-	 * Wait a certain amount of seconds
-	 * Used so we don't go over the maximum amount of requests per minute
+	 * Wait a certain amount of seconds Used so we don't go over the maximum
+	 * amount of requests per minute
+	 * 
 	 * @param seconds
 	 */
 	private void waitSeconds(int seconds) {
@@ -240,24 +273,29 @@ public class SimpleRedditModel {
 
 	public static void main(String args[]) {
 		SimpleRedditModel mod = new SimpleRedditModel();
-
-		for (int i = 0; i < 10; i++) {
-			System.out.println("GETTING PAGE NUMBER: " + i);
-			mod.retrieveNextPage();
-			mod.waitSeconds(2);
+		System.out.println(mod.getCurrentLink());
+		for(int i = 0; i < mod.LINKS_PER_PAGE; i++){
+			System.out.println(mod.getNextLink());
 		}
-
-		for (int i = 0; i < 5; i++) {
-			System.out.println("GOING BACK " + i + " times");
-			mod.retrievePreviousPage();
-			mod.waitSeconds(2);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			System.out.println("GOING FORWARD " + i + " times");
-			mod.retrieveNextPage();
-			mod.waitSeconds(2);
-		}
+		
+		
+		// for (int i = 0; i < 10; i++) {
+		// System.out.println("GETTING PAGE NUMBER: " + i);
+		// mod.retrieveNextPage();
+		// mod.waitSeconds(2);
+		// }
+		//
+		// for (int i = 0; i < 5; i++) {
+		// System.out.println("GOING BACK " + i + " times");
+		// mod.retrievePreviousPage();
+		// mod.waitSeconds(2);
+		// }
+		//
+		// for (int i = 0; i < 5; i++) {
+		// System.out.println("GOING FORWARD " + i + " times");
+		// mod.retrieveNextPage();
+		// mod.waitSeconds(2);
+		// }
 
 		// System.out.println("GETTING FIRST PAGE");
 		// mod.retrieveFrontPage();
