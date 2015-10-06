@@ -15,76 +15,76 @@ import javafx.scene.web.WebView;
 public class SimpleRedditController {
 
 	private SimpleRedditModel model;
-	
+
 	@FXML
 	private WebView webView;
 	private WebEngine webEngine;
-	
-	
-    @FXML
-    private Button nextBtn;
 
-    @FXML
-    private Button hotBtn;
+	@FXML
+	private Button nextBtn;
 
-    @FXML
-    private Button newBtn;
+	@FXML
+	private Button hotBtn;
 
-    @FXML
-    private Button topBtn;
+	@FXML
+	private Button newBtn;
 
-    @FXML
-    private TextField subredditTxtBox;
+	@FXML
+	private Button topBtn;
 
-    @FXML
-    private Button goBtn;
+	@FXML
+	private TextField subredditTxtBox;
 
-    @FXML
-    private Button frontPageBtn;
+	@FXML
+	private Button goBtn;
 
-    @FXML
-    private Label titleLabel;
+	@FXML
+	private Button frontPageBtn;
 
-    @FXML
-    private Button prevBtn;
+	@FXML
+	private Label titleLabel;
 
-    @FXML
-    void initialize(){
-    	model = new SimpleRedditModel();
-    	//browser.goToLink();;
-    	initWebView();
-    	webEngine.load(model.getCurrentLink().getUrl());
-    }
-    
-    @FXML
-    public void goToPrevLink(ActionEvent event) {
-    	System.out.println("Getting previous link");
-    	model.getPreviousLink();
-    	updateWebEngine();
-    }
-    
-    @FXML
-    public void goToNextLink(ActionEvent event){
-    	System.out.println("Getting next link");
-    	model.getNextLink();
-    	updateWebEngine();
-    }
-    
-    private void initWebView(){
-    	webEngine = webView.getEngine();
-    	webEngine.setJavaScriptEnabled(true);
-    	webEngine.locationProperty().addListener(new ChangeListener<String>() {
+	@FXML
+	private Button prevBtn;
+
+	@FXML
+	void initialize() {
+
+		// browser.goToLink();;
+		initWebView();
+//		model = new SimpleRedditModel();
+		webEngine.load(getClass().getResource("ayylmao.html").toExternalForm());
+
+	}
+
+	@FXML
+	public void goToPrevLink(ActionEvent event) {
+		System.out.println("Getting previous link");
+		model.getPreviousLink();
+		updateWebEngine();
+	}
+
+	@FXML
+	public void goToNextLink(ActionEvent event) {
+		System.out.println("Getting next link");
+		model.getNextLink();
+		updateWebEngine();
+	}
+
+	private void initWebView() {
+		webEngine = webView.getEngine();
+		webEngine.setJavaScriptEnabled(true);
+		webEngine.locationProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				titleLabel.setText(model.getCurrentLink().getTitle());			}
+				titleLabel.setText(model.getCurrentLink().getTitle());
+			}
 		});
-    	titleLabel.setText(model.getCurrentLink().getTitle());
-    }
-    
-    private void updateWebEngine(){
-    	webEngine.load(model.getCurrentLink().getUrl());
-    }
-    
-    
+//		titleLabel.setText(model.getCurrentLink().getTitle());
+	}
+
+	private void updateWebEngine() {
+		webEngine.load(model.getCurrentLink().getUrl());
+	}
 
 }
