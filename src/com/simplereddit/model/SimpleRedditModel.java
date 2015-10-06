@@ -24,6 +24,11 @@ public class SimpleRedditModel {
 	private final int LINKS_PER_PAGE = 25;
 
 	/**
+	 * Amount of seconds needed to wait between each request
+	 */
+	private final int SECONDS_TO_WAIT_PER_REQUEST = 2;
+
+	/**
 	 * ArrayList of links that the application will store. Will be cleared
 	 * everytime the frontpage, or the frontpage of a subreddit is loaded
 	 */
@@ -161,8 +166,8 @@ public class SimpleRedditModel {
 	 * @param page
 	 */
 	private void addPageToLinkArray(JSONObject page) {
-		JSONArray JSONLinks = page.getJSONObject("data")
-				.getJSONArray("children");
+		JSONArray JSONLinks = page.getJSONObject("data").getJSONArray(
+				"children");
 		for (int i = 0; i < JSONLinks.length(); i++) {
 			JSONObject JSONLink = JSONLinks.getJSONObject(i);
 			this.links.add(convertJSONLinkToLink(JSONLink));
@@ -233,8 +238,7 @@ public class SimpleRedditModel {
 		StringBuilder sb = new StringBuilder();
 		for (String header : headers) {
 			sb.append(header + "\n");
-			writeStringToFile(sb.toString(),
-					SimpleRedditConstants.HEADERS_FILE);
+			writeStringToFile(sb.toString(), SimpleRedditConstants.HEADERS_FILE);
 		}
 	}
 
@@ -274,11 +278,10 @@ public class SimpleRedditModel {
 	public static void main(String args[]) {
 		SimpleRedditModel mod = new SimpleRedditModel();
 		System.out.println(mod.getCurrentLink());
-		for(int i = 0; i < mod.LINKS_PER_PAGE; i++){
+		for (int i = 0; i < 1000; i++) {
 			System.out.println(mod.getNextLink());
 		}
-		
-		
+
 		// for (int i = 0; i < 10; i++) {
 		// System.out.println("GETTING PAGE NUMBER: " + i);
 		// mod.retrieveNextPage();
