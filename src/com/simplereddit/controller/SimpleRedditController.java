@@ -1,6 +1,5 @@
 package com.simplereddit.controller;
 
-import com.simplereddit.browser.MyBrowser;
 import com.simplereddit.model.SimpleRedditModel;
 
 import javafx.beans.value.ChangeListener;
