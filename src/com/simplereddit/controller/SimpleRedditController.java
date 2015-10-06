@@ -57,19 +57,32 @@ public class SimpleRedditController {
     }
     
     @FXML
-    void goToPrevLink(ActionEvent event) {
-
+    public void goToPrevLink(ActionEvent event) {
+    	System.out.println("Getting previous link");
+    	model.getPreviousLink();
+    	updateWebEngine();
+    }
+    
+    @FXML
+    public void goToNextLink(ActionEvent event){
+    	System.out.println("Getting next link");
+    	model.getNextLink();
+    	updateWebEngine();
     }
     
     private void initWebView(){
     	webEngine = webView.getEngine();
+    	webEngine.setJavaScriptEnabled(true);
     	webEngine.locationProperty().addListener(new ChangeListener<String>() {
-
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				titleLabel.setText(model.getCurrentLink().getTitle());			}
 		});
     	titleLabel.setText(model.getCurrentLink().getTitle());
+    }
+    
+    private void updateWebEngine(){
+    	webEngine.load(model.getCurrentLink().getUrl());
     }
     
     
