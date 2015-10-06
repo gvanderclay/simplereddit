@@ -5,17 +5,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import com.simplereddit.browser.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplereddit.controller.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplereddit.controller.SimpleRedditController">
    <children>
       <BorderPane layoutX="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
             <Button fx:id="nextBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="570.0" prefWidth="60.0" text="-&gt;" BorderPane.alignment="CENTER" />
          </right>
-         <center>
-            <MyBrowser fx:id="myBrowser" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
          <top>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -58,6 +54,9 @@
                </children>
             </HBox>
          </left>
+         <center>
+            <WebView fx:id="webView" minHeight="570.0" minWidth="680.0" prefHeight="570.0" prefWidth="480.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

@@ -278,8 +278,12 @@ public class SimpleRedditModel {
 	public static void main(String args[]) {
 		SimpleRedditModel mod = new SimpleRedditModel();
 		System.out.println(mod.getCurrentLink());
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			System.out.println(mod.getNextLink());
+		}
+		
+		for(int i = 0; i < 1000; i++){
+			System.out.println(mod.getPreviousLink());
 		}
 
 		// for (int i = 0; i < 10; i++) {
