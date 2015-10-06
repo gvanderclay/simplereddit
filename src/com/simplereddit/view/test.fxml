@@ -7,31 +7,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import com.simplereddit.browser.*?>
 
-<AnchorPane prefHeight="514.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplereddit.controller.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplereddit.controller.Controller">
    <children>
-      <BorderPane layoutX="14.0" prefHeight="280.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <Button mnemonicParsing="false" prefHeight="541.0" prefWidth="62.0" text="&lt;-" BorderPane.alignment="CENTER" />
-         </left>
+      <BorderPane layoutX="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <Button mnemonicParsing="false" prefHeight="542.0" prefWidth="62.0" text="-&gt;" BorderPane.alignment="CENTER" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="570.0" prefWidth="60.0" text="-&gt;" BorderPane.alignment="CENTER" />
          </right>
-         <top>
-            <HBox prefHeight="31.0" prefWidth="719.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="Hot" />
-                  <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="60.0" text="New" />
-                  <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="60.0" text="Top" />
-                  <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="222.0" />
-                  <TextField prefHeight="53.0" prefWidth="173.0" promptText="/r/subreddit" />
-                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="45.0" text="Go!" />
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="99.0" text="Front Page" />
-               </children>
-            </HBox>
-         </top>
          <center>
             <MyBrowser fx:id="myBrowser" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="62.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="10.0" prefWidth="62.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="0.0" prefWidth="62.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="326.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="147.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="45.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" text="Hot" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="New" GridPane.columnIndex="1" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Top" GridPane.columnIndex="2" />
+                  <TextField maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="170.0" promptText="/r/subreddit" GridPane.columnIndex="4" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0" text="Go!" GridPane.columnIndex="5" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Front Page" GridPane.columnIndex="6" />
+                  <Label alignment="BASELINE_CENTER" prefHeight="16.0" prefWidth="327.0" text="SimpleReddit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+               </children>
+            </GridPane>
+         </top>
+         <left>
+            <HBox prefHeight="570.0" prefWidth="60.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                     <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="60.0" text="&lt;-" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
