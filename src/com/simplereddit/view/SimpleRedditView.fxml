@@ -10,7 +10,7 @@
    <children>
       <BorderPane layoutX="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <Button fx:id="nextBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToNextLink" prefHeight="570.0" prefWidth="60.0" text="-&gt;" BorderPane.alignment="CENTER" />
+            <Button fx:id="nextBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToNextLink" onKeyPressed="#enterToSubreddit" prefHeight="570.0" prefWidth="60.0" text="-&gt;" BorderPane.alignment="CENTER" />
          </right>
          <top>
             <GridPane BorderPane.alignment="CENTER">
@@ -27,13 +27,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="hotBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" text="Hot" />
-                  <Button fx:id="newBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="New" GridPane.columnIndex="1" />
-                  <Button fx:id="topBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Top" GridPane.columnIndex="2" />
-                  <TextField fx:id="subredditTxtBox" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="170.0" promptText="/r/subreddit" GridPane.columnIndex="4" />
-                  <Button fx:id="goBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0" text="Go!" GridPane.columnIndex="5" />
-                  <Button fx:id="frontPageBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Front Page" GridPane.columnIndex="6" />
+                  <Button fx:id="hotBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getHotLinks" prefHeight="30.0" text="Hot" />
+                  <Button fx:id="newBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getNewLinks" prefHeight="30.0" prefWidth="60.0" text="New" GridPane.columnIndex="1" />
+                  <TextField fx:id="subredditTxtBox" maxWidth="1.7976931348623157E308" onAction="#enterToSubreddit" prefHeight="30.0" prefWidth="170.0" promptText="subreddit" GridPane.columnIndex="4" />
+                  <Button fx:id="goBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSubreddit" prefHeight="30.0" prefWidth="45.0" text="Go!" GridPane.columnIndex="5" />
+                  <Button fx:id="frontPageBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getFrontPage" prefHeight="30.0" prefWidth="100.0" text="Front Page" GridPane.columnIndex="6" />
                   <Label fx:id="titleLabel" alignment="BASELINE_CENTER" prefHeight="16.0" prefWidth="327.0" text="SimpleReddit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                  <MenuButton fx:id="topBtn" mnemonicParsing="false" prefHeight="104.0" prefWidth="62.0" text="Top" GridPane.columnIndex="2">
+                     <items>
+                        <MenuItem fx:id="topHour" mnemonicParsing="false" onAction="#getTopHour" text="Past Hour" />
+                        <MenuItem fx:id="topDay" mnemonicParsing="false" onAction="#getTopDay" text="Past 24 Hours" />
+                        <MenuItem fx:id="topWeek" mnemonicParsing="false" onAction="#getTopWeek" text="Past Week" />
+                        <MenuItem fx:id="topMonth" mnemonicParsing="false" onAction="#getTopMonth" text="Past Month" />
+                        <MenuItem fx:id="topYear" mnemonicParsing="false" onAction="#getTopYear" text="Past Year" />
+                        <MenuItem fx:id="topAll" mnemonicParsing="false" onAction="#getTopAll" text="All Time" />
+                     </items>
+                  </MenuButton>
                </children>
             </GridPane>
          </top>
