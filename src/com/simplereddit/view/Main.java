@@ -8,6 +8,12 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * @author Kevin & Gage
+ * Sets up a SimpleReddit desktop application
+ * Uses the JavaFX package to create the GUI
+ * The main class launches the application
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
