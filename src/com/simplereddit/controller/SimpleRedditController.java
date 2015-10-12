@@ -187,6 +187,9 @@ public class SimpleRedditController {
 		titleLabel.setText(model.getCurrentLink().getTitle());
 	}
 
+	/**
+	 * Change the web browser
+	 */
 	private void updateWebEngine() {
 		webEngine.load(model.getCurrentLink().getUrl());
 	}

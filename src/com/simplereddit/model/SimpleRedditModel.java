@@ -152,13 +152,12 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
-	public void getAllLinks(){
+	public void getAllLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
-		if(currentSubreddit == ""){
+		if (currentSubreddit == "") {
 			currentPath = "";
-		}
-		else{
+		} else {
 			currentPath = "/r/" + currentSubreddit;
 		}
 		String allJSONString = retrievePageWithoutParams();
@@ -457,16 +456,6 @@ public class SimpleRedditModel {
 		return links;
 	}
 
-	/**
-	 * Set the links on the current page
-	 *
-	 * @param links
-	 *            links to set as the current page
-	 */
-	public void setLinks(ArrayList<Link> links) {
-		this.links = links;
-	}
-
 	private String retrievePageWithParams() {
 		return http.getHttp(SimpleRedditConstants.REDDIT_URL, currentPath + SimpleRedditConstants.JSON_PATH,
 				SimpleRedditConstants.PARAMS_FILE, SimpleRedditConstants.HEADERS_FILE);
@@ -488,7 +477,18 @@ public class SimpleRedditModel {
 		writeStringsToFile(false, SimpleRedditConstants.PARAMS_FILE, params);
 	}
 
-	public void writeStringsToFile(boolean append, File file, String... params) {
+	/**
+	 * Add headers for the http request
+	 *
+	 * @param headers
+	 *            The headers that will be added to the headers file in the form
+	 *            "headertitle":"headerinfo" without the quotes
+	 */
+	private void writeToHeadersFile(String... headers) {
+		writeStringsToFile(false, SimpleRedditConstants.HEADERS_FILE, headers);
+	}
+
+	private void writeStringsToFile(boolean append, File file, String... params) {
 		BufferedWriter bw = null;
 		try {
 			// APPEND MODE SET HERE
@@ -509,17 +509,6 @@ public class SimpleRedditModel {
 					// just ignore it
 				}
 		}
-	}
-
-	/**
-	 * Add headers for the http request
-	 *
-	 * @param headers
-	 *            The headers that will be added to the headers file in the form
-	 *            "headertitle":"headerinfo" without the quotes
-	 */
-	private void writeToHeadersFile(String... headers) {
-		writeStringsToFile(false, SimpleRedditConstants.HEADERS_FILE, headers);
 	}
 
 	public static void main(String args[]) {
