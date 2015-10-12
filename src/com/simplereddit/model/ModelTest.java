@@ -11,14 +11,28 @@ import org.junit.Test;
 public class ModelTest {
 
 	@Test
-	public void testAtFirstLinkAfterFrontPage(){
+	public void testAtFirstLinkAfterHot() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getHotLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testAtFirstLinkAfterAll() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getAllLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testAtFirstLinkAfterFrontPage() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveFrontPage();
 		assertTrue(model.atFirstLink());
 	}
 
 	@Test
-	public void testAtFirstLinkAfterSubreddit(){
+	public void testAtFirstLinkAfterSubreddit() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("videos");
 		assertTrue(model.atFirstLink());
@@ -44,4 +58,5 @@ public class ModelTest {
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
 	}
+
 }
