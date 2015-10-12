@@ -37,23 +37,23 @@ public class ModelTest {
 		model.retrieveSubreddit("videos");
 		assertTrue(model.atFirstLink());
 	}
-	
+
 	@Test
 	public void testAtFirstLinkAfterSubreddit2(){
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("sports");
 		assertTrue(model.atFirstLink());
 	}
-	
+
 	@Test
 	public void testAtFirstLinkAfterSubreddit3(){
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("funny");
 		assertTrue(model.atFirstLink());
 	}
-	
+
 	@Test
-	public void testAtRereiveFromNew(){
+	public void testAtRetreiveFromNew(){
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
