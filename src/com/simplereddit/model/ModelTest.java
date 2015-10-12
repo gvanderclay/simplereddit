@@ -89,7 +89,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testGetNextLinkAfterGettingNextLinksAndPrevLinks(){
+	public void testGetNextLinkAfterGettingNextLinksAndPrevLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		for (int i = 0; i < 100; i++) {
 			model.getNextLink();
@@ -103,4 +103,44 @@ public class ModelTest {
 		}
 	}
 
+	public void testGetTopHourLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopHourLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetTopDayLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopDayLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetTopWeekLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopWeekLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetTopMonthLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopMonthLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetTopYearLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopYearLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetTopAllLinks(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getTopAllLinks();
+		assertTrue(model.atFirstLink());
+	}
 }

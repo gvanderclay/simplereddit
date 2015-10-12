@@ -392,10 +392,10 @@ public class SimpleRedditModel {
 
 	public Link getPreviousLink() {
 		System.out.println(atFirstLink());
-//		if (atFirstLink()) {
-//			System.out.println("CAN'T DO THAT");
-//			return this.currentLink;
-//		}
+		if (atFirstLink()) {
+			System.out.println("CAN'T DO THAT");
+			return this.currentLink;
+		}
 		if (currentLinkIndex == 0) {
 			retrievePreviousPage();
 			currentLinkIndex = 25;
