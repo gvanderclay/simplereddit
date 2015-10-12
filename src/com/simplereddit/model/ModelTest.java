@@ -13,6 +13,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getHotLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -20,6 +21,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getAllLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -27,6 +29,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveFrontPage();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -34,6 +37,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("videos");
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -41,6 +45,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("sports");
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -48,6 +53,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("funny");
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -55,6 +61,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -64,6 +71,7 @@ public class ModelTest {
 		for (int i = 0; i < 1000; i++) {
 			assertTrue(firstLink == model.getCurrentLink());
 		}
+		waitOneSecond();
 	}
 
 	@Test
@@ -74,6 +82,7 @@ public class ModelTest {
 			nextLink = model.getNextLink();
 			assertTrue(nextLink == model.getCurrentLink());
 		}
+		waitOneSecond();
 	}
 
 	@Test
@@ -82,10 +91,12 @@ public class ModelTest {
 		for (int i = 0; i < 100; i++) {
 			model.getNextLink();
 		}
+		waitOneSecond();
 		for (int i = 0; i < 100; i++) {
 			Link prevLink = model.getPreviousLink();
 			assertTrue(prevLink == model.getCurrentLink());
 		}
+		waitOneSecond();
 	}
 
 	@Test
@@ -94,19 +105,23 @@ public class ModelTest {
 		for (int i = 0; i < 100; i++) {
 			model.getNextLink();
 		}
+		waitOneSecond();
 		for (int i = 0; i < 50; i++) {
 			model.getPreviousLink();
 		}
+		waitOneSecond();
 		for (int i = 0; i < 50; i++) {
 			Link nextLink = model.getNextLink();
 			assertTrue(nextLink == model.getCurrentLink());
 		}
+		waitOneSecond();
 	}
 
 	public void testGetTopHourLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopHourLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -114,6 +129,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopDayLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -121,6 +137,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopWeekLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -128,6 +145,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopMonthLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -135,6 +153,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopYearLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
 
 	@Test
@@ -142,5 +161,15 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopAllLinks();
 		assertTrue(model.atFirstLink());
+		waitOneSecond();
 	}
+
+
+	private void waitOneSecond(){
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+	}
+
 }
