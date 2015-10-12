@@ -88,4 +88,19 @@ public class ModelTest {
 		}
 	}
 
+	@Test
+	public void testGetNextLinkAfterGettingNextLinksAndPrevLinks(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		for (int i = 0; i < 100; i++) {
+			model.getNextLink();
+		}
+		for (int i = 0; i < 50; i++) {
+			model.getPreviousLink();
+		}
+		for (int i = 0; i < 50; i++) {
+			Link nextLink = model.getNextLink();
+			assertTrue(nextLink == model.getCurrentLink());
+		}
+	}
+
 }
