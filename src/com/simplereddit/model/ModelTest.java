@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.simplereddit.Link;
+
 public class ModelTest {
 
 	@Test
@@ -57,6 +59,21 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testGetPrevLinkAtFirstLink(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		Link firstLink = model.getCurrentLink();
+		for(int i = 0; i < 1000; i++){
+			assertTrue(firstLink == model.getCurrentLink());
+		}
+	}
+
+	@Test
+	public void testGetNextLink(){
+		SimpleRedditModel model = new SimpleRedditModel();
+
 	}
 
 }
