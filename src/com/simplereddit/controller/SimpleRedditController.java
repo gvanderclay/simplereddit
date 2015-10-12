@@ -30,6 +30,9 @@ public class SimpleRedditController {
 	private Button hotBtn;
 
 	@FXML
+	private Button allBtn;
+
+	@FXML
 	private Button newBtn;
 
 	@FXML
@@ -105,6 +108,12 @@ public class SimpleRedditController {
 	}
 
 	@FXML
+	void getAllLinks(ActionEvent event){
+		model.getAllLinks();
+		updateWebEngine();
+	}
+
+	@FXML
 	void getNewLinks(ActionEvent event) {
 		model.getNewLinks();
 		updateWebEngine();
@@ -162,6 +171,10 @@ public class SimpleRedditController {
 		updateWebEngine();
 	}
 
+	/**
+	 * Makes the web browser usable for the GUI.
+	 * Makes the JLabel on the front of the GUI change whenever the link is changeed
+	 */
 	private void initWebView() {
 		webEngine = webView.getEngine();
 		webEngine.setJavaScriptEnabled(true);

@@ -25,12 +25,14 @@ public class SimpleRedditModel {
 	private final int LINKS_PER_PAGE = 25;
 
 	/**
-	 * Amount of seconds needed to wait between each request
+	 * Subreddit that is currently being browsed, when no subreddit is being
+	 * browsed it is set to ""
 	 */
-	// private final int SECONDS_TO_WAIT_PER_REQUEST = 2;
-
 	private String currentSubreddit;
 
+	/**
+	 * Current path of the url
+	 */
 	private String currentPath;
 
 	/**
@@ -54,16 +56,34 @@ public class SimpleRedditModel {
 	 */
 	private int currentLinkIndex;
 
+	/**
+	 * If we are browsing the top links of the hour or not
+	 */
 	private boolean topHour;
 
+	/**
+	 * If we are browsing top links of the day or not
+	 */
 	private boolean topDay;
 
+	/**
+	 * If we are browsing top links of the week or not
+	 */
 	private boolean topWeek;
 
+	/**
+	 * If we are browsing the top links of the month or not
+	 */
 	private boolean topMonth;
 
+	/**
+	 * If we are browsing the top links of the year or not
+	 */
 	private boolean topYear;
 
+	/**
+	 * If we are browisng the top links of all time or not
+	 */
 	private boolean topAll;
 
 	public SimpleRedditModel() {
@@ -95,6 +115,12 @@ public class SimpleRedditModel {
 		System.out.println("getting front page");
 	}
 
+	/**
+	 * Retrieve a specific subreddit
+	 *
+	 * @param subreddit
+	 *            name of the subreddit I'm going to
+	 */
 	public void retrieveSubreddit(String subreddit) {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -108,6 +134,9 @@ public class SimpleRedditModel {
 		System.out.println("Getting subreddit: " + subreddit);
 	}
 
+	/**
+	 * Get the hot links of the current subreddit or front page
+	 */
 	public void getHotLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -118,6 +147,22 @@ public class SimpleRedditModel {
 		}
 		String hotJSONString = retrievePageWithoutParams();
 		JSONObject page = new JSONObject(hotJSONString);
+		addPageToLinkArray(page);
+		currentLinkIndex = 0;
+		currentLink = links.get(currentLinkIndex);
+	}
+
+	public void getAllLinks(){
+		resetLinks();
+		setAllTopSortsToFalse();
+		if(currentSubreddit == ""){
+			currentPath = "";
+		}
+		else{
+			currentPath = "/r/" + currentSubreddit;
+		}
+		String allJSONString = retrievePageWithoutParams();
+		JSONObject page = new JSONObject(allJSONString);
 		addPageToLinkArray(page);
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
@@ -476,20 +521,6 @@ public class SimpleRedditModel {
 	private void writeToHeadersFile(String... headers) {
 		writeStringsToFile(false, SimpleRedditConstants.HEADERS_FILE, headers);
 	}
-
-	/**
-	 * Wait a certain amount of seconds Used so we don't go over the maximum
-	 * amount of requests per minute
-	 *
-	 * @param seconds
-	 */
-	// private void waitSeconds(int seconds) {
-	// try {
-	// Thread.sleep(1000 * seconds); // 1000 milliseconds is one second.
-	// } catch (InterruptedException ex) {
-	// Thread.currentThread().interrupt();
-	// }
-	// }
 
 	public static void main(String args[]) {
 		// SimpleRedditModel mod = new SimpleRedditModel();
