@@ -69,7 +69,7 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		Link firstLink = model.getCurrentLink();
 		for (int i = 0; i < 1000; i++) {
-			assertTrue(firstLink == model.getCurrentLink());
+			assertTrue(firstLink == model.getPreviousLink());
 		}
 		waitOneSecond();
 	}
@@ -112,11 +112,12 @@ public class ModelTest {
 		waitOneSecond();
 		for (int i = 0; i < 50; i++) {
 			Link nextLink = model.getNextLink();
+			System.out.println(nextLink.getTitle());
 			assertTrue(nextLink == model.getCurrentLink());
 		}
 		waitOneSecond();
 	}
-	
+
 	@Test
 	public void testGetTopHourLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
@@ -158,7 +159,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testGetTopAllLinks(){
+	public void testGetTopAllLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopAllLinks();
 		assertTrue(model.atFirstLink());
@@ -207,22 +208,32 @@ public class ModelTest {
 		model.retrieveSubreddit("sports");
 		model.getTopYearLinks();
 		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testSubredditWithLowAmountOfLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("ooer");
+		model.getTopHourLinks();
+		for (int i = 0; i < 100; i++) {
+			model.getNextLink();
+		}
 		waitOneSecond();
 	}
 
 	@Test
-	public void testGetTopAllLinksSubreddit(){
+	public void testGetTopAllLinksSubreddit() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("sports");
 		model.getTopAllLinks();
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
 	}
-	private void waitOneSecond(){
+
+	private void waitOneSecond() {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
 	}
-
 }
