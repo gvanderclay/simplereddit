@@ -116,7 +116,8 @@ public class ModelTest {
 		}
 		waitOneSecond();
 	}
-
+	
+	@Test
 	public void testGetTopHourLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopHourLinks();
@@ -164,7 +165,59 @@ public class ModelTest {
 		waitOneSecond();
 	}
 
+	@Test
+	public void testGetTopHourLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopHourLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
 
+	@Test
+	public void testGetTopDayLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopDayLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopWeekLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("videos");
+		model.getTopWeekLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopMonthLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("funny");
+		model.getTopMonthLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopYearLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopYearLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopAllLinksSubreddit(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopAllLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
 	private void waitOneSecond(){
 		try {
 			Thread.sleep(1000);
