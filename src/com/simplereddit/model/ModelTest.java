@@ -176,7 +176,7 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testGetTopAllLinks(){
+	public void testGetTopAllLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getTopAllLinks();
 		assertTrue(model.atFirstLink());
@@ -184,21 +184,73 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testSubredditWithLowAmountOfLinks(){
+	public void testGetTopHourLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopHourLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopDayLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopDayLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopWeekLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("videos");
+		model.getTopWeekLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopMonthLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("funny");
+		model.getTopMonthLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
+	public void testGetTopYearLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopYearLinks();
+		assertTrue(model.atFirstLink());
+	}
+
+	@Test
+	public void testSubredditWithLowAmountOfLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("ooer");
 		model.getTopHourLinks();
-		for(int i = 0; i < 100; i++){
+		for (int i = 0; i < 100; i++) {
 			model.getNextLink();
 		}
 		waitOneSecond();
 	}
 
-	private void waitOneSecond(){
+	@Test
+	public void testGetTopAllLinksSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("sports");
+		model.getTopAllLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	private void waitOneSecond() {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
 	}
-
 }
