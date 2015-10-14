@@ -17,6 +17,15 @@ public class ModelTest {
 	}
 
 	@Test
+	public void testGetHotOfSubreddit(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("videos");
+		model.getHotLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+
+	@Test
 	public void testAtFirstLinkAfterAll() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.getAllLinks();
@@ -62,6 +71,14 @@ public class ModelTest {
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
+	}
+
+	@Test
+	public void testNewFromSubreddit(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("videos");
+		model.getNewLinks();
+		assertTrue(model.atFirstLink());
 	}
 
 	@Test

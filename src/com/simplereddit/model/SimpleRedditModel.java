@@ -155,11 +155,8 @@ public class SimpleRedditModel {
 	public void getAllLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
-		if (currentSubreddit == "") {
-			currentPath = "";
-		} else {
-			currentPath = "/r/" + currentSubreddit;
-		}
+		currentSubreddit = "all";
+		currentPath = "/r/" + currentSubreddit;
 		String allJSONString = retrievePageWithoutParams();
 		JSONObject page = new JSONObject(allJSONString);
 		addPageToLinkArray(page);
