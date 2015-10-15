@@ -105,13 +105,18 @@ public class ModelTest {
 	@Test
 	public void testGetPrevLinkAfterGettingNextLink() {
 		SimpleRedditModel model = new SimpleRedditModel();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 50; i++) {
 			model.getNextLink();
+			if(i % 2 == 0){
+				waitOneSecond();
+			}
 		}
-		waitOneSecond();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 50; i++) {
 			Link prevLink = model.getPreviousLink();
 			assertTrue(prevLink == model.getCurrentLink());
+			if(i % 2 == 0){
+				waitOneSecond();
+			}
 		}
 		waitOneSecond();
 	}
