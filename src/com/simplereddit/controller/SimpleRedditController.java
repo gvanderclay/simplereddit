@@ -15,6 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+/**
+ * Controller for the simplereddit application
+ * @author Gage and Kevin
+ *
+ */
 public class SimpleRedditController {
 
 	private SimpleRedditModel model;

@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import com.simplereddit.Link;
 
+/**
+ * Class that tests the simpleredditmodel class
+ * @author Gage and Kevin
+ *
+ */
 public class ModelTest {
 
 	@Test

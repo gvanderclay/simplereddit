@@ -1,0 +1,38 @@
+* b05db52 : changed the go to previous after next test
+*   655dadb : pls fix
+|\  
+| *   592a8d9 : more tests
+| |\  
+| * | c5c384b : added the subreddit sort tests
+* | | e1d43e8 : some tests
+| |/  
+|/|   
+* | fdf6128 : added more tests
+|/  
+* f7f3f75 : added some more tests and the waitOneSecondMethod()
+*   53b1fa1 : fix some merge conflicts
+|\  
+| * 4b5176d : added top tests
+* | bd5e088 : added some stuff
+|/  
+* d278753 : added more tests
+* e0eeee8 : added more tests
+* c90fc47 : fixed some spelling errors
+*   addf69e : added some tests
+|\  
+| * cf9cdb1 : added test for first link after all links and hot links
+* | 2574da6 : added some tests
+|/  
+* 9195b4c : adding test case for the model class
+* 3bfa0c6 : Added the button to the GUI to get the links from all
+* 8a21693 : ADDED MORE FUNCTIONALTY
+* 3b62c82 : Controller.java deleted online with Bitbucket
+* 5daecaf : added the gitignore file
+* f9ba349 : Going forward and backward between links now works.
+* 06d3bdb : removed the MyBrowser class and the package it was contained in since it is no longer needed
+* 69820e9 : changed the name of the test.fxml to SimpleRedditView.fxml
+* fbab304 : The app can now load the first link of reddit right when it starts and the layout looks better
+* 139a831 : stuff
+* 5dec776 : added the resource file from the old simplereddit project
+* 3cc935e : made some changes to the gui
+* fab1d74 : initial commit

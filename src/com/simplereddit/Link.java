@@ -3,6 +3,11 @@ package com.simplereddit;
 import java.util.Formatter;
 import java.util.Locale;
 
+/**
+ * Class that represents a link in reddit
+ * @author Gage and Kevin
+ *
+ */
 public class Link {
 
 	/**

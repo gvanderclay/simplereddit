@@ -12,6 +12,13 @@ import org.json.JSONObject;
 import com.simplereddit.Link;
 import com.simplereddit.SimpleRedditConstants;
 
+/**
+ * Model for the simplereddit application
+ * Basically navigates through reddit through manual HTTP requests
+ * Data in here is then pulled to the View class and then displayed
+ * @author Gage and Kevin
+ *
+ */
 public class SimpleRedditModel {
 
 	/**
@@ -152,6 +159,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the links in /r/all
+	 */
 	public void getAllLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -164,6 +174,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the new links of the current page
+	 */
 	public void getNewLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -179,6 +192,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the top links of the hour of the current page
+	 */
 	public void getTopHourLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -197,6 +213,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the top links of the day of the current page
+	 */
 	public void getTopDayLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -215,6 +234,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the top links of the week of the current page
+	 */
 	public void getTopWeekLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -233,6 +255,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the top links of the month of the current page
+	 */
 	public void getTopMonthLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -251,6 +276,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Gets the top links of the year of the current page
+	 */
 	public void getTopYearLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -269,6 +297,9 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Get the top links of all times of the current page
+	 */
 	public void getTopAllLinks() {
 		resetLinks();
 		setAllTopSortsToFalse();
@@ -287,12 +318,18 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 
+	/**
+	 * Clears all the links and resets the linkcount
+	 */
 	private void resetLinks() {
 		this.links.clear();
 		this.linkCount = 0;
 
 	}
 
+	/**
+	 * Writes the params for the write top sort
+	 */
 	private void writeTopSortToParams() {
 		if (topHour) {
 			writeStringsToFile(true, SimpleRedditConstants.PARAMS_FILE, "sort:top", "t:hour");
@@ -310,6 +347,9 @@ public class SimpleRedditModel {
 
 	}
 
+	/**
+	 * Sets all booleans of all types of top sorts to false
+	 */
 	private void setAllTopSortsToFalse() {
 		this.topHour = false;
 		this.topDay = false;
@@ -375,6 +415,10 @@ public class SimpleRedditModel {
 		addPageToLinkArray(page);
 	}
 
+	/**
+	 * Gets the next link in the arraylist of links and sets the current link to the next one
+	 * @return the next link in the list
+	 */
 	public Link getNextLink() {
 		if (currentLinkIndex >= links.size() - 1 && links.size() < LINKS_PER_PAGE) {
 			currentLinkIndex = -1;
@@ -387,6 +431,10 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
+	/**
+	 * Gets the previous link in the arraylist of links and sets the current link to the previous one
+	 * @return
+	 */
 	public Link getPreviousLink() {
 		System.out.println(atFirstLink());
 		if (atFirstLink()) {
@@ -401,6 +449,10 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
+	/**
+	 * Says if we are at the first link of the subreddit
+	 * @return if we are at the first link of the subreddit
+	 */
 	public boolean atFirstLink() {
 		if (this.currentLinkIndex == 0 && (this.linkCount == 0 || this.linkCount == 26)) {
 			return true;
@@ -408,6 +460,10 @@ public class SimpleRedditModel {
 		return false;
 	}
 
+	/**
+	 * Returns the current link
+	 * @return the current link
+	 */
 	public Link getCurrentLink() {
 		return this.currentLink;
 	}
@@ -453,11 +509,19 @@ public class SimpleRedditModel {
 		return links;
 	}
 
+	/**
+	 * Gets a page when there are params to be made in the request
+	 * @return String of the http request made
+	 */
 	private String retrievePageWithParams() {
 		return http.getHttp(SimpleRedditConstants.REDDIT_URL, currentPath + SimpleRedditConstants.JSON_PATH,
 				SimpleRedditConstants.PARAMS_FILE, SimpleRedditConstants.HEADERS_FILE);
 	}
 
+	/**
+	 * Gets a page when there are no params to be made in the request
+	 * @return
+	 */
 	private String retrievePageWithoutParams() {
 		return http.getHttp(SimpleRedditConstants.REDDIT_URL, currentPath + SimpleRedditConstants.JSON_PATH, null,
 				SimpleRedditConstants.HEADERS_FILE);
@@ -485,6 +549,12 @@ public class SimpleRedditModel {
 		writeStringsToFile(false, SimpleRedditConstants.HEADERS_FILE, headers);
 	}
 
+	/**
+	 * Writes strings to a file
+	 * @param append if the file should clear the current contents of the file or not
+	 * @param file the file to write to
+	 * @param params parameters to write to the file
+	 */
 	private void writeStringsToFile(boolean append, File file, String... params) {
 		BufferedWriter bw = null;
 		try {
