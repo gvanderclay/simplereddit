@@ -1,5 +1,6 @@
 package com.simplereddit;
 
+import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
 
@@ -39,15 +40,19 @@ public class Link {
 	 * Amount of karma this link has on reddit
 	 */
 	private int score;
+	
+	private Date date;
+	
 
 	public Link(String title, String url, String permaLink, String author,
-			String id, int score) {
+			String id, int score, Date date) {
 		this.title = title;
 		this.url = url;
 		this.permaLink = permaLink;
 		this.author = author;
 		this.id = id;
 		this.score = score;
+		this.date = date;
 	}
 
 	public String getTitle() {
@@ -107,5 +112,15 @@ public class Link {
 		formatter.close();
 		return sb.toString();
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 
 }

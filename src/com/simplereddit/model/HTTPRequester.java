@@ -140,6 +140,8 @@ public class HTTPRequester {
 
 		httpContext);
 
+		System.out.println(cookieStore.toString());
+		
 		return printResult(response);
 
 	}
@@ -167,9 +169,9 @@ public class HTTPRequester {
 		System.out.println("Sending 'POST' request to URL: " + httpPost.getURI());
 
 		HttpResponse response = executeConnection(httpClient, httpPost, httpContext);
-
+		
 		return printResult(response);
-
+		
 	}
 
 	public String putHttp(String url, String path, File entityFile, File headers) {

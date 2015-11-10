@@ -16,10 +16,10 @@
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="62.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="60.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="10.0" prefWidth="64.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="0.0" prefWidth="62.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="326.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="30.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="10.0" prefWidth="55.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="0.0" prefWidth="52.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="715.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="147.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="45.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="100.0" />
@@ -28,13 +28,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="hotBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getHotLinks" prefHeight="30.0" text="Hot" />
+                  <Button fx:id="hotBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getHotLinks" prefHeight="30.0" prefWidth="28.0" text="Hot" />
                   <Button fx:id="newBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getNewLinks" prefHeight="30.0" prefWidth="60.0" text="New" GridPane.columnIndex="2" />
                   <TextField fx:id="subredditTxtBox" maxWidth="1.7976931348623157E308" onAction="#enterToSubreddit" prefHeight="30.0" prefWidth="170.0" promptText="subreddit" GridPane.columnIndex="5" />
                   <Button fx:id="goBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSubreddit" prefHeight="30.0" prefWidth="45.0" text="Go!" GridPane.columnIndex="6" />
                   <Button fx:id="frontPageBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getFrontPage" prefHeight="30.0" prefWidth="100.0" text="Front Page" GridPane.columnIndex="7" />
-                  <Label fx:id="titleLabel" alignment="BASELINE_CENTER" prefHeight="16.0" prefWidth="327.0" text="SimpleReddit" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                  <MenuButton fx:id="topBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="76.0" text="Top" GridPane.columnIndex="3">
+                  <MenuButton fx:id="topBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Top" GridPane.columnIndex="3">
                      <items>
                         <MenuItem fx:id="topHour" mnemonicParsing="false" onAction="#getTopHour" text="Past Hour" />
                         <MenuItem fx:id="topDay" mnemonicParsing="false" onAction="#getTopDay" text="Past 24 Hours" />
@@ -45,6 +44,7 @@
                      </items>
                   </MenuButton>
                   <Button fx:id="allBtn" mnemonicParsing="false" onAction="#getAllLinks" prefHeight="30.0" prefWidth="60.0" text="All" GridPane.columnIndex="1" />
+                  <Label fx:id="infoLabel" alignment="CENTER" prefHeight="16.0" prefWidth="1008.0" text="Post Data" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </top>
@@ -66,7 +66,19 @@
             </HBox>
          </left>
          <center>
-            <WebView fx:id="webView" minHeight="570.0" minWidth="680.0" prefHeight="570.0" prefWidth="480.0" BorderPane.alignment="CENTER" />
+            <GridPane BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="349.0" minHeight="8.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="922.0" minHeight="10.0" prefHeight="904.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <WebView fx:id="webView" minHeight="570.0" minWidth="680.0" prefHeight="570.0" prefWidth="480.0" GridPane.rowIndex="1" />
+                  <Label fx:id="titleLabel" alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="SimpleReddit" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+               </children>
+            </GridPane>
          </center>
       </BorderPane>
    </children>

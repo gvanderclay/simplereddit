@@ -19,7 +19,7 @@ public final class SimpleRedditConstants {
 	 * path to get the json representation of a subreddit
 	 */
 	public static final String JSON_PATH = "/.json";
-
+	
 	/**
 	 * File that contains the params for the http request to reddit
 	 */
@@ -30,6 +30,12 @@ public final class SimpleRedditConstants {
 	 */
 	public static final File HEADERS_FILE = new File("resources/http/headers");
 
+	
+	/**
+	 * File used as a placeholder for the entity file 
+	 */
+	public static final File EMPTY_FILE = new File("resources/http/placeholder");
+	
 
 	/**
 	 * The caller should be prevented from constructing objects of this class,

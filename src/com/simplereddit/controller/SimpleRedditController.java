@@ -1,5 +1,8 @@
 package com.simplereddit.controller;
 
+import java.util.Date;
+
+import com.simplereddit.Link;
 import com.simplereddit.model.SimpleRedditModel;
 
 import javafx.beans.value.ChangeListener;
@@ -72,6 +75,9 @@ public class SimpleRedditController {
 
 	@FXML
 	private Label titleLabel;
+	
+    @FXML
+    private Label infoLabel;
 
 	@FXML
 	private Button prevBtn;
@@ -186,12 +192,22 @@ public class SimpleRedditController {
 		webEngine.locationProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				titleLabel.setText(model.getCurrentLink().getTitle());
+				Link currentLink = model.getCurrentLink();
+				titleLabel.setText(currentLink.getTitle());
+				infoLabel.setText(getLinkData(currentLink));
 			}
 		});
 		titleLabel.setText(model.getCurrentLink().getTitle());
 	}
 
+	private String getLinkData(Link link){
+		int score = link.getScore();
+		Date date = link.getDate();
+		String author = link.getAuthor();
+		String dateFormatted = date.toString().substring(4);
+		return "Score: " + score + "\tAuthor: " + author + "\tDate: " + dateFormatted;
+	}
+	
 	/**
 	 * Change the web browser
 	 */

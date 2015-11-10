@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,9 +14,10 @@ import com.simplereddit.Link;
 import com.simplereddit.SimpleRedditConstants;
 
 /**
- * Model for the simplereddit application
- * Basically navigates through reddit through manual HTTP requests
- * Data in here is then pulled to the View class and then displayed
+ * Model for the simplereddit application Basically navigates through reddit
+ * through manual HTTP requests Data in here is then pulled to the View class
+ * and then displayed
+ * 
  * @author Gage and Kevin
  *
  */
@@ -103,6 +105,16 @@ public class SimpleRedditModel {
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
 	}
+	
+	public static void main(String args[]){
+		new SimpleRedditModel().login("gvanderclay", "gatorade");
+	}
+
+	public void login(String username, String password) {
+		writeToParamsFile("user:" + username, "passwd:" + password, "api_type:json");
+		http.postHttp(SimpleRedditConstants.REDDIT_URL, "/api/login/" + username, SimpleRedditConstants.PARAMS_FILE,
+				SimpleRedditConstants.EMPTY_FILE, SimpleRedditConstants.HEADERS_FILE);
+	}
 
 	/**
 	 * Retrieves the front page of Reddit and puts the links on the front page
@@ -110,6 +122,7 @@ public class SimpleRedditModel {
 	 */
 	public void retrieveFrontPage() {
 		// clear the links in the links array
+		login("gvanderclay", "gatorade");
 		resetLinks();
 		setAllTopSortsToFalse();
 		currentSubreddit = "";
@@ -416,7 +429,9 @@ public class SimpleRedditModel {
 	}
 
 	/**
-	 * Gets the next link in the arraylist of links and sets the current link to the next one
+	 * Gets the next link in the arraylist of links and sets the current link to
+	 * the next one
+	 * 
 	 * @return the next link in the list
 	 */
 	public Link getNextLink() {
@@ -432,7 +447,9 @@ public class SimpleRedditModel {
 	}
 
 	/**
-	 * Gets the previous link in the arraylist of links and sets the current link to the previous one
+	 * Gets the previous link in the arraylist of links and sets the current
+	 * link to the previous one
+	 * 
 	 * @return
 	 */
 	public Link getPreviousLink() {
@@ -451,6 +468,7 @@ public class SimpleRedditModel {
 
 	/**
 	 * Says if we are at the first link of the subreddit
+	 * 
 	 * @return if we are at the first link of the subreddit
 	 */
 	public boolean atFirstLink() {
@@ -462,6 +480,7 @@ public class SimpleRedditModel {
 
 	/**
 	 * Returns the current link
+	 * 
 	 * @return the current link
 	 */
 	public Link getCurrentLink() {
@@ -484,33 +503,36 @@ public class SimpleRedditModel {
 	/**
 	 * Converts a specific link that is in a JSONObject into a Link
 	 *
-	 * @param JSONLink
+	 * @param jsonLink
 	 *            Link from reddit that is in JSON
 	 * @return the converted Link object
 	 */
-	private Link convertJSONLinkToLink(JSONObject JSONLink) {
-		JSONObject JSONLinkData = JSONLink.getJSONObject("data");
-		String title = JSONLinkData.getString("title");
-		String url = JSONLinkData.getString("url");
-		String permaLink = JSONLinkData.getString("permalink");
-		String author = JSONLinkData.getString("author");
-		String id = JSONLinkData.getString("name");
-		int score = JSONLinkData.getInt("score");
-		Link link = new Link(title, url, permaLink, author, id, score);
+	private Link convertJSONLinkToLink(JSONObject jsonLink) {
+		JSONObject jsonLinkData = jsonLink.getJSONObject("data");
+		String title = jsonLinkData.getString("title");
+		String url = jsonLinkData.getString("url");
+		String permaLink = jsonLinkData.getString("permalink");
+		String author = jsonLinkData.getString("author");
+		String id = jsonLinkData.getString("name");
+		int score = jsonLinkData.getInt("score");
+		Date date = convertToDate(jsonLinkData);
+		Link link = new Link(title, url, permaLink, author, id, score, date);
 		return link;
 	}
 
-	/**
-	 * Gets the links on the current page
-	 *
-	 * @return the links on the current page
-	 */
+	private Date convertToDate(JSONObject jsonLink) {
+		long millis = jsonLink.getLong("created_utc");
+		Date date = new Date((long) 1000 * millis);
+		return date;
+	}
+
 	public ArrayList<Link> getLinks() {
 		return links;
 	}
 
 	/**
 	 * Gets a page when there are params to be made in the request
+	 * 
 	 * @return String of the http request made
 	 */
 	private String retrievePageWithParams() {
@@ -520,6 +542,7 @@ public class SimpleRedditModel {
 
 	/**
 	 * Gets a page when there are no params to be made in the request
+	 * 
 	 * @return
 	 */
 	private String retrievePageWithoutParams() {
@@ -551,9 +574,14 @@ public class SimpleRedditModel {
 
 	/**
 	 * Writes strings to a file
-	 * @param append if the file should clear the current contents of the file or not
-	 * @param file the file to write to
-	 * @param params parameters to write to the file
+	 * 
+	 * @param append
+	 *            if the file should clear the current contents of the file or
+	 *            not
+	 * @param file
+	 *            the file to write to
+	 * @param params
+	 *            parameters to write to the file
 	 */
 	private void writeStringsToFile(boolean append, File file, String... params) {
 		BufferedWriter bw = null;
