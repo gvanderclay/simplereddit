@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,6 +65,8 @@ public class SimpleRedditModel {
 	 * Index of the currentLink in the links array
 	 */
 	private int currentLinkIndex;
+	
+	private HashMap<String, Link> savedLinks;
 
 	/**
 	 * If we are browsing the top links of the hour or not
@@ -98,6 +101,7 @@ public class SimpleRedditModel {
 	public SimpleRedditModel() {
 		this.links = new ArrayList<Link>();
 		this.linkCount = 0;
+		this.savedLinks = new HashMap<String, Link>();
 		setAllTopSortsToFalse();
 		writeToHeadersFile("User-Agent:desktop:com.simplereddit:v0.1");
 		retrieveFrontPage();
@@ -492,8 +496,18 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
+	
+	
 	public void saveCurrentLink(){
-		
+		savedLinks.put(currentLink.getTitle(), currentLink);
+	}
+	
+	public HashMap<String, Link> getSavedLinks(){
+		return this.savedLinks;
+	}
+	
+	public Link getSavedLink(String title){
+		return savedLinks.get(title);
 	}
 	
 	/**
