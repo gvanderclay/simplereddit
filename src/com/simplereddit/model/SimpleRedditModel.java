@@ -153,6 +153,11 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 		System.out.println("Getting subreddit: " + subreddit);
 	}
+	
+
+	public String getCurrentSubreddit() {
+		return currentSubreddit;
+	}
 
 	/**
 	 * Get the hot links of the current subreddit or front page
@@ -487,6 +492,10 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
+	public void saveCurrentLink(){
+		
+	}
+	
 	/**
 	 * Adds a page of reddit to the link array
 	 *
@@ -515,8 +524,9 @@ public class SimpleRedditModel {
 		String author = jsonLinkData.getString("author");
 		String id = jsonLinkData.getString("name");
 		int score = jsonLinkData.getInt("score");
+		String subreddit = jsonLinkData.getString("subreddit");
 		Date date = convertToDate(jsonLinkData);
-		Link link = new Link(title, url, permaLink, author, id, score, date);
+		Link link = new Link(title, url, permaLink, author, id, score, subreddit, date);
 		return link;
 	}
 

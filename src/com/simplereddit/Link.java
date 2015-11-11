@@ -41,17 +41,20 @@ public class Link {
 	 */
 	private int score;
 	
+	private String subreddit;
+	
 	private Date date;
 	
 
 	public Link(String title, String url, String permaLink, String author,
-			String id, int score, Date date) {
+			String id, int score, String subreddit, Date date) {
 		this.title = title;
 		this.url = url;
 		this.permaLink = permaLink;
 		this.author = author;
 		this.id = id;
 		this.score = score;
+		this.subreddit = subreddit;
 		this.date = date;
 	}
 
@@ -113,6 +116,14 @@ public class Link {
 		return sb.toString();
 	}
 
+	public String getSubreddit() {
+		return subreddit;
+	}
+
+	public void setSubreddit(String subreddit) {
+		this.subreddit = subreddit;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -120,7 +131,5 @@ public class Link {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
 
 }

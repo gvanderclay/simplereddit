@@ -8,6 +8,7 @@ import com.simplereddit.model.SimpleRedditModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
@@ -15,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -88,7 +91,9 @@ public class SimpleRedditController {
 		webView.setCacheHint(CacheHint.SPEED);
 		model = new SimpleRedditModel();
 		initWebView();
+		initButtons();
 		webEngine.load(model.getCurrentLink().getUrl());
+		
 
 	}
 
@@ -195,17 +200,46 @@ public class SimpleRedditController {
 				Link currentLink = model.getCurrentLink();
 				titleLabel.setText(currentLink.getTitle());
 				infoLabel.setText(getLinkData(currentLink));
+				
 			}
 		});
 		titleLabel.setText(model.getCurrentLink().getTitle());
 	}
+	
+	private void initButtons(){
+		prevBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.LEFT)){
+					model.getPreviousLink();
+					updateWebEngine();
+				}
+			}
+			
+		});
+		
+		nextBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.RIGHT)){
+					model.getNextLink();
+					updateWebEngine();
+				}
+			}
+			
+		});
+	}
+	
 
 	private String getLinkData(Link link){
 		int score = link.getScore();
 		Date date = link.getDate();
 		String author = link.getAuthor();
+		String subreddit = link.getSubreddit();
 		String dateFormatted = date.toString().substring(4);
-		return "Score: " + score + "\tAuthor: " + author + "\tDate: " + dateFormatted;
+		return "Score: " + score + "\t/r/" + subreddit +  "\tAuthor: " + author + "\tDate: " + dateFormatted;
 	}
 	
 	/**
