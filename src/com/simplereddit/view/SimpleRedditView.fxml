@@ -88,9 +88,8 @@
                      <children>
                         <MenuButton mnemonicParsing="false" prefHeight="51.0" prefWidth="80.0" text="Saved">
                           <items>
-                              <Menu mnemonicParsing="false" text="View Saved Links" />
-                              <Menu mnemonicParsing="false" text="Delete Link" />
                             <MenuItem id="saveLinkBtn" fx:id="saveLinkBtn" mnemonicParsing="false" onAction="#saveLink" text="Save Link" />
+                              <MenuItem fx:id="viewSavedLinkBtn" mnemonicParsing="false" onAction="#viewSavedLink" text="View Saved Links" />
                           </items>
                         </MenuButton>
                         <Button fx:id="switchButton" mnemonicParsing="false" onAction="#switchPage" text="Comments" GridPane.columnIndex="1" />

@@ -90,7 +90,15 @@ public class SimpleRedditController {
 	@FXML
 	private Button switchButton;
 
+    @FXML
+    private MenuItem saveLinkBtn;
+
+    @FXML
+    private MenuItem viewSavedLinks;
+    
 	private boolean atPage;
+	
+	private boolean viewingSavedLinks;
 
 	@FXML
 	void initialize() {
@@ -101,6 +109,7 @@ public class SimpleRedditController {
 		initButtons();
 		webEngine.load(model.getCurrentLink().getUrl());
 		atPage = true;
+		viewingSavedLinks = false;
 	}
 
 	@FXML
@@ -187,6 +196,12 @@ public class SimpleRedditController {
 		retrieveSubreddit();
 	}
 
+
+    @FXML
+    void saveLink(ActionEvent event) {
+    	model.saveCurrentLink();
+    }
+	
 	@FXML
 	void switchPage(ActionEvent event) {
 		if (atPage) {
@@ -226,7 +241,6 @@ public class SimpleRedditController {
 
 	private void initButtons() {
 		prevBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.LEFT)) {
@@ -236,9 +250,7 @@ public class SimpleRedditController {
 			}
 
 		});
-
 		nextBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.RIGHT)) {

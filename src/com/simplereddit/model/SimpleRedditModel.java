@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,7 +65,7 @@ public class SimpleRedditModel {
 	 */
 	private int currentLinkIndex;
 	
-	private HashMap<String, Link> savedLinks;
+	private ArrayList<Link> savedLinks;
 
 	/**
 	 * If we are browsing the top links of the hour or not
@@ -101,7 +100,7 @@ public class SimpleRedditModel {
 	public SimpleRedditModel() {
 		this.links = new ArrayList<Link>();
 		this.linkCount = 0;
-		this.savedLinks = new HashMap<String, Link>();
+		this.savedLinks = new ArrayList<Link>();
 		setAllTopSortsToFalse();
 		writeToHeadersFile("User-Agent:desktop:com.simplereddit:v0.1");
 		retrieveFrontPage();
@@ -179,6 +178,30 @@ public class SimpleRedditModel {
 		addPageToLinkArray(page);
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
+	}
+	
+	public void switchToSavedLinks(){
+		if(savedLinks.isEmpty()){}
+		else{
+			currentLink = savedLinks.get(0);
+			currentLinkIndex = 0;
+		}
+	}
+	
+	public void getPrevSavedLink(){
+		if(currentLinkIndex == 0){}
+		else{
+			currentLinkIndex--;
+			currentLink = savedLinks.get(currentLinkIndex);
+		}
+	}
+	
+	public void getNextSavedLink(){
+		if(currentLinkIndex >= savedLinks.size() - 1){}
+		else{
+			currentLinkIndex++;
+			currentLink = savedLinks.get(currentLinkIndex);
+		}
 	}
 
 	/**
@@ -410,6 +433,8 @@ public class SimpleRedditModel {
 		JSONObject page = new JSONObject(nextPageJSONString);
 		addPageToLinkArray(page);
 	}
+	
+	
 
 	/**
 	 * Gets the page that is before the current page. If there is not a current
@@ -496,18 +521,12 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
-	
-	
 	public void saveCurrentLink(){
-		savedLinks.put(currentLink.getTitle(), currentLink);
+		savedLinks.add(currentLink);
 	}
 	
-	public HashMap<String, Link> getSavedLinks(){
+	public ArrayList<Link> getSavedLinks(){
 		return this.savedLinks;
-	}
-	
-	public Link getSavedLink(String title){
-		return savedLinks.get(title);
 	}
 	
 	/**
