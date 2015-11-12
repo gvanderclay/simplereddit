@@ -132,4 +132,11 @@ public class Link {
 		this.date = date;
 	}
 
+
+	public boolean equals(Link link){
+		if((this.title.equals(link.title)) && (this.url.equals(link.url))){
+			return true;
+		}
+		return false;
+	}
 }

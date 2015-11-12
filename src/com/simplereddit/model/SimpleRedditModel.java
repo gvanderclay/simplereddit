@@ -523,7 +523,6 @@ public class SimpleRedditModel {
 
 	public void saveCurrentLink(){
 		savedLinks.add(currentLink);
-		System.out.println(savedLinks);
 	}
 	
 	public ArrayList<Link> getSavedLinks(){

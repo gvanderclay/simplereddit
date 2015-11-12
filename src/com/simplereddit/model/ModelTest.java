@@ -257,6 +257,25 @@ public class ModelTest {
 		waitOneSecond();
 	}
 
+	@Test
+	public void testSavingLinks(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveFrontPage();
+		for(int i = 0; i < 25; i++){
+			model.saveCurrentLink();
+			model.getNextLink();
+		}
+		model.switchToSavedLinks();
+		for(int i = 0; i < 25; i++){
+			assertTrue(model.getCurrentLink().equals(model.getSavedLinks().get(i)));
+			model.getNextSavedLink();
+		}
+		for(int i = 24; i >= 0; i--){
+			assertTrue(model.getCurrentLink().equals(model.getSavedLinks().get(i)));
+			model.getPrevSavedLink();
+		}
+	}
+
 	private void waitOneSecond() {
 		try {
 			Thread.sleep(1000);
