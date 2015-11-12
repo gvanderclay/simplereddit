@@ -180,6 +180,10 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 	}
 	
+	/**
+	 * Switching to viewing saved links from normal links
+	 */
+	
 	public void switchToSavedLinks(){
 		if(savedLinks.isEmpty()){}
 		else{
@@ -188,6 +192,10 @@ public class SimpleRedditModel {
 		}
 	}
 	
+	/**
+	 * Gets the previous saved link
+	 */
+	
 	public void getPrevSavedLink(){
 		if(currentLinkIndex == 0){}
 		else{
@@ -195,6 +203,10 @@ public class SimpleRedditModel {
 			currentLink = savedLinks.get(currentLinkIndex);
 		}
 	}
+	
+	/**
+	 * Gets the next saved link
+	 */
 	
 	public void getNextSavedLink(){
 		if(currentLinkIndex >= savedLinks.size() - 1){}
@@ -521,11 +533,18 @@ public class SimpleRedditModel {
 		return this.currentLink;
 	}
 
+	/**
+	 * Saves the current link of the page
+	 */
+	
 	public void saveCurrentLink(){
 		savedLinks.add(currentLink);
 		System.out.println(savedLinks);
 	}
 	
+	/**
+	 * Returns the list of saved links
+	 */
 	public ArrayList<Link> getSavedLinks(){
 		return this.savedLinks;
 	}

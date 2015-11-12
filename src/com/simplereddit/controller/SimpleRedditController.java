@@ -237,6 +237,13 @@ public class SimpleRedditController {
 		viewingSavedLinks = true;
 	}
 
+	/**
+	 * If SimpleReddit is looking at the links then the comments button is available
+	 * once the comments button is pressed the model goes to the comments of that reddit link
+	 * The comments button changes to a link button, if that is pressed the link is then shown
+	 * and the comment button appears once again
+	 */
+	
 	@FXML
 	void switchPage(ActionEvent event) {
 		if (atPage) {
@@ -297,6 +304,11 @@ public class SimpleRedditController {
 		});
 	}
 
+	/** 
+	 * getLinkData shows all the information about the current link
+	 * it is updated when user moves to the next link
+	 */
+	
 	private String getLinkData(Link link) {
 		int score = link.getScore();
 		Date date = link.getDate();
