@@ -90,14 +90,14 @@ public class SimpleRedditController {
 	@FXML
 	private Button switchButton;
 
-    @FXML
-    private MenuItem saveLinkBtn;
+	@FXML
+	private MenuItem saveLinkBtn;
 
-    @FXML
-    private MenuItem viewSavedLinks;
-    
+	@FXML
+	private MenuItem viewSavedLinks;
+
 	private boolean atPage;
-	
+
 	private boolean viewingSavedLinks;
 
 	@FXML
@@ -111,97 +111,132 @@ public class SimpleRedditController {
 		atPage = true;
 		viewingSavedLinks = false;
 	}
-
+	
+	private void goToPrevLink(){
+		System.out.println("Getting previous link");
+		if (viewingSavedLinks) {
+			model.getNextSavedLink();
+		} else {
+			model.getPreviousLink();
+		}
+		updateWebEngine();
+	}
+	
 	@FXML
 	public void goToPrevLink(ActionEvent event) {
-		System.out.println("Getting previous link");
-		model.getPreviousLink();
+		goToPrevLink();
+	}
+	
+	private void goToNextLink(){
+		System.out.println("Getting next link");
+		if (viewingSavedLinks) {
+			model.getNextSavedLink();
+		} else {
+			model.getNextLink();
+		}
 		updateWebEngine();
 	}
 
 	@FXML
 	public void goToNextLink(ActionEvent event) {
-		System.out.println("Getting next link");
-		model.getNextLink();
-		updateWebEngine();
+		goToNextLink();
 	}
 
 	@FXML
 	void getFrontPage(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.retrieveFrontPage();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getHotLinks(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getHotLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getAllLinks(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getAllLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getNewLinks(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getNewLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopAll(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopAllLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopDay(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopDayLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopHour(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopHourLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopMonth(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopMonthLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopWeek(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopWeekLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void getTopYear(ActionEvent event) {
+		viewingSavedLinks = false;
 		model.getTopYearLinks();
 		updateWebEngine();
 	}
 
 	@FXML
 	void goToSubreddit(ActionEvent event) {
+		viewingSavedLinks = false;
 		retrieveSubreddit();
 	}
 
 	@FXML
 	void enterToSubreddit(ActionEvent event) {
+		viewingSavedLinks = false;
 		retrieveSubreddit();
 	}
 
+	@FXML
+	void saveLink(ActionEvent event) {
+		model.saveCurrentLink();
+	}
 
-    @FXML
-    void saveLink(ActionEvent event) {
-    	model.saveCurrentLink();
-    }
-	
+	@FXML
+	void viewSavedLinks(ActionEvent event) {
+		model.switchToSavedLinks();
+		System.out.println(model.getCurrentLink());
+		updateWebEngine();
+		viewingSavedLinks = true;
+	}
+
 	@FXML
 	void switchPage(ActionEvent event) {
 		if (atPage) {
@@ -244,7 +279,7 @@ public class SimpleRedditController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.LEFT)) {
-					model.getPreviousLink();
+					goToPrevLink();
 					updateWebEngine();
 				}
 			}
@@ -254,7 +289,7 @@ public class SimpleRedditController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.RIGHT)) {
-					model.getNextLink();
+					goToNextLink();
 					updateWebEngine();
 				}
 			}
@@ -276,7 +311,5 @@ public class SimpleRedditController {
 	 */
 	private void updateWebEngine() {
 		webEngine.load(model.getCurrentLink().getUrl());
-		System.out.println(model.getCurrentLink().getUrl());
-		System.out.println(SimpleRedditConstants.REDDIT_URL + model.getCurrentLink().getPermaLink());
 	}
 }

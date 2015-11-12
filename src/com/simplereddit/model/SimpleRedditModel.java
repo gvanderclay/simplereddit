@@ -183,8 +183,8 @@ public class SimpleRedditModel {
 	public void switchToSavedLinks(){
 		if(savedLinks.isEmpty()){}
 		else{
-			currentLink = savedLinks.get(0);
 			currentLinkIndex = 0;
+			currentLink = savedLinks.get(currentLinkIndex);
 		}
 	}
 	
@@ -523,6 +523,7 @@ public class SimpleRedditModel {
 
 	public void saveCurrentLink(){
 		savedLinks.add(currentLink);
+		System.out.println(savedLinks);
 	}
 	
 	public ArrayList<Link> getSavedLinks(){
