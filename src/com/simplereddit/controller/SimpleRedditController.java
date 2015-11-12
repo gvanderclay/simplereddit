@@ -3,6 +3,7 @@ package com.simplereddit.controller;
 import java.util.Date;
 
 import com.simplereddit.Link;
+import com.simplereddit.SimpleRedditConstants;
 import com.simplereddit.model.SimpleRedditModel;
 
 import javafx.beans.value.ChangeListener;
@@ -23,6 +24,7 @@ import javafx.scene.web.WebView;
 
 /**
  * Controller for the simplereddit application
+ * 
  * @author Gage and Kevin
  *
  */
@@ -78,12 +80,17 @@ public class SimpleRedditController {
 
 	@FXML
 	private Label titleLabel;
-	
-    @FXML
-    private Label infoLabel;
+
+	@FXML
+	private Label infoLabel;
 
 	@FXML
 	private Button prevBtn;
+
+	@FXML
+	private Button switchButton;
+
+	private boolean atPage;
 
 	@FXML
 	void initialize() {
@@ -93,8 +100,7 @@ public class SimpleRedditController {
 		initWebView();
 		initButtons();
 		webEngine.load(model.getCurrentLink().getUrl());
-		
-
+		atPage = true;
 	}
 
 	@FXML
@@ -124,7 +130,7 @@ public class SimpleRedditController {
 	}
 
 	@FXML
-	void getAllLinks(ActionEvent event){
+	void getAllLinks(ActionEvent event) {
 		model.getAllLinks();
 		updateWebEngine();
 	}
@@ -181,6 +187,18 @@ public class SimpleRedditController {
 		retrieveSubreddit();
 	}
 
+	@FXML
+	void switchPage(ActionEvent event) {
+		if (atPage) {
+			webEngine.load("http://" + SimpleRedditConstants.REDDIT_URL + model.getCurrentLink().getPermaLink());
+			switchButton.setText("Link");
+		} else {
+			webEngine.load(model.getCurrentLink().getUrl());
+			switchButton.setText("Comments");
+		}
+		atPage = !atPage;
+	}
+
 	private void retrieveSubreddit() {
 		String subreddit = subredditTxtBox.getText();
 		model.retrieveSubreddit(subreddit);
@@ -188,8 +206,8 @@ public class SimpleRedditController {
 	}
 
 	/**
-	 * Makes the web browser usable for the GUI.
-	 * Makes the JLabel on the front of the GUI change whenever the link is changeed
+	 * Makes the web browser usable for the GUI. Makes the JLabel on the front
+	 * of the GUI change whenever the link is changeed
 	 */
 	private void initWebView() {
 		webEngine = webView.getEngine();
@@ -200,53 +218,53 @@ public class SimpleRedditController {
 				Link currentLink = model.getCurrentLink();
 				titleLabel.setText(currentLink.getTitle());
 				infoLabel.setText(getLinkData(currentLink));
-				
+
 			}
 		});
 		titleLabel.setText(model.getCurrentLink().getTitle());
 	}
-	
-	private void initButtons(){
+
+	private void initButtons() {
 		prevBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode().equals(KeyCode.LEFT)){
+				if (event.getCode().equals(KeyCode.LEFT)) {
 					model.getPreviousLink();
 					updateWebEngine();
 				}
 			}
-			
+
 		});
-		
+
 		nextBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode().equals(KeyCode.RIGHT)){
+				if (event.getCode().equals(KeyCode.RIGHT)) {
 					model.getNextLink();
 					updateWebEngine();
 				}
 			}
-			
+
 		});
 	}
-	
 
-	private String getLinkData(Link link){
+	private String getLinkData(Link link) {
 		int score = link.getScore();
 		Date date = link.getDate();
 		String author = link.getAuthor();
 		String subreddit = link.getSubreddit();
 		String dateFormatted = date.toString().substring(4);
-		return "Score: " + score + "\t/r/" + subreddit +  "\tAuthor: " + author + "\tDate: " + dateFormatted;
+		return "Score: " + score + "\t/r/" + subreddit + "\tAuthor: " + author + "\tDate: " + dateFormatted;
 	}
-	
+
 	/**
 	 * Change the web browser
 	 */
 	private void updateWebEngine() {
 		webEngine.load(model.getCurrentLink().getUrl());
+		System.out.println(model.getCurrentLink().getUrl());
+		System.out.println(SimpleRedditConstants.REDDIT_URL + model.getCurrentLink().getPermaLink());
 	}
-
 }
