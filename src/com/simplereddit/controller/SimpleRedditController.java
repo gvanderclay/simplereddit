@@ -1,10 +1,14 @@
 package com.simplereddit.controller;
 
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 
 import com.simplereddit.Link;
 import com.simplereddit.SimpleRedditConstants;
 import com.simplereddit.model.SimpleRedditModel;
+import com.sun.org.apache.xml.internal.utils.NSInfo;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -79,6 +84,9 @@ public class SimpleRedditController {
 	private Button frontPageBtn;
 
 	@FXML
+	private Button randBtn;
+	
+	@FXML
 	private Label titleLabel;
 
 	@FXML
@@ -91,14 +99,28 @@ public class SimpleRedditController {
 	private Button switchButton;
 
 	@FXML
+	private Button nsfwFilterBtn;
+	
+	@FXML
 	private MenuItem saveLinkBtn;
 
 	@FXML
 	private MenuItem viewSavedLinks;
 
+	@FXML
+	private MenuItem saveSubredditBtn;
+	
+	@FXML
+	private MenuItem customSubredditBtn;
+	
+	@FXML
+	private Menu deleteSubredditMenu;
+	
 	private boolean atPage;
 
 	private boolean viewingSavedLinks;
+
+	private boolean filterNSFW;
 
 	@FXML
 	void initialize() {
@@ -110,9 +132,10 @@ public class SimpleRedditController {
 		webEngine.load(model.getCurrentLink().getUrl());
 		atPage = true;
 		viewingSavedLinks = false;
+		filterNSFW = true;
 	}
-	
-	private void goToPrevLink(){
+
+	private void goToPrevLink() {
 		System.out.println("Getting previous link");
 		if (viewingSavedLinks) {
 			model.getNextSavedLink();
@@ -121,13 +144,13 @@ public class SimpleRedditController {
 		}
 		updateWebEngine();
 	}
-	
+
 	@FXML
 	public void goToPrevLink(ActionEvent event) {
 		goToPrevLink();
 	}
-	
-	private void goToNextLink(){
+
+	private void goToNextLink() {
 		System.out.println("Getting next link");
 		if (viewingSavedLinks) {
 			model.getNextSavedLink();
@@ -144,11 +167,30 @@ public class SimpleRedditController {
 
 	@FXML
 	void getFrontPage(ActionEvent event) {
+		getFrontPage();
+	}
+	
+	private void getFrontPage(){
 		viewingSavedLinks = false;
 		model.retrieveFrontPage();
 		updateWebEngine();
 	}
 
+	@FXML
+	void toggleNSFWFilter(){
+		filterNSFW = !filterNSFW;
+		
+		if(filterNSFW){
+			nsfwFilterBtn.setText("NSFW On");
+		}
+		else{
+			nsfwFilterBtn.setText("NSFW Off");
+		}
+		
+		updateWebEngine();
+	}
+	
+	
 	@FXML
 	void getHotLinks(ActionEvent event) {
 		viewingSavedLinks = false;
@@ -236,14 +278,37 @@ public class SimpleRedditController {
 		updateWebEngine();
 		viewingSavedLinks = true;
 	}
-
-	/**
-	 * If SimpleReddit is looking at the links then the comments button is available
-	 * once the comments button is pressed the model goes to the comments of that reddit link
-	 * The comments button changes to a link button, if that is pressed the link is then shown
-	 * and the comment button appears once again
-	 */
 	
+	@FXML
+	void resetSavedLinks(ActionEvent event){
+		model.clearSavedLinks();
+		getFrontPage();
+	}
+
+	@FXML
+	void saveCurrentSubreddit(){
+		model.saveCurrentSubreddit();
+	}
+	
+	@FXML
+	void viewCustomSubreddits(){
+		model.retrieveCustomSubreddit();
+		updateWebEngine();
+	}
+	
+	@FXML
+	void resetCustomSubreddits(){
+		model.clearCustomSubreddits();
+		getFrontPage();
+	}
+	
+	/**
+	 * If SimpleReddit is looking at the links then the comments button is
+	 * available once the comments button is pressed the model goes to the
+	 * comments of that reddit link The comments button changes to a link
+	 * button, if that is pressed the link is then shown and the comment button
+	 * appears once again
+	 */
 	@FXML
 	void switchPage(ActionEvent event) {
 		if (atPage) {
@@ -262,6 +327,12 @@ public class SimpleRedditController {
 		updateWebEngine();
 	}
 
+	@FXML
+	void getRandomSubreddit(){
+		model.getRandomSubreddit();
+		updateWebEngine();
+	}
+	
 	/**
 	 * Makes the web browser usable for the GUI. Makes the JLabel on the front
 	 * of the GUI change whenever the link is changeed
@@ -304,11 +375,11 @@ public class SimpleRedditController {
 		});
 	}
 
-	/** 
-	 * getLinkData shows all the information about the current link
-	 * it is updated when user moves to the next link
+	/**
+	 * getLinkData shows all the information about the current link it is
+	 * updated when user moves to the next link
 	 */
-	
+
 	private String getLinkData(Link link) {
 		int score = link.getScore();
 		Date date = link.getDate();
@@ -322,6 +393,13 @@ public class SimpleRedditController {
 	 * Change the web browser
 	 */
 	private void updateWebEngine() {
-		webEngine.load(model.getCurrentLink().getUrl());
+		if (filterNSFW && model.getCurrentLink().isNsfw()) {
+			Link currentLink = model.getCurrentLink();
+			titleLabel.setText(currentLink.getTitle());
+			infoLabel.setText(getLinkData(currentLink));
+			webEngine.loadContent("<h1>NSFW</h1>");
+		} else {
+			webEngine.load(model.getCurrentLink().getUrl());
+		}
 	}
 }

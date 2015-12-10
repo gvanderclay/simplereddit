@@ -23,73 +23,73 @@ public class linkTest {
 	
 	@Test
 	public void testMakeLink(){		
-		Link testLink1 = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);
-		Link testLink2 = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink1 = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);
+		Link testLink2 = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		assertTrue(testLink1.equals(testLink2));
 	}
 	
 	@Test
 	public void testgetTitle(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		assertTrue(testLink.getTitle() == test);
 		assertFalse(testLink.getTitle() == failtest);	
 	}
 	
 	@Test
 	public void testsetTitle(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setTitle("hello");
 		assertTrue(testLink.getTitle() == "hello");
 	}
 	
 	@Test
 	public void testgetUrl(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		assertTrue(testLink.getUrl() == testUrl);	
 	}
 	
 	@Test
 	public void testsetUrl(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setUrl("url");
 		assertTrue(testLink.getUrl() == "url");
 	}
 	
 	@Test
 	public void testgetPermaLink(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		assertTrue(testLink.getPermaLink() == testPermaLink);	
 	}
 	
 	@Test
 	public void testsetPermaLink(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setPermaLink("permalink");
 		assertTrue(testLink.getPermaLink() == "permalink");
 	}
 	
 	@Test
 	public void testgetId(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		assertTrue(testLink.getId() == id);
 	}
 	
 	@Test
 	public void testsetId(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setId(test);
 		assertTrue(testLink.getId() == "Test");
 	}
 	
 	@Test
 	public void testgetandsetScore(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setScore(420);
 		assertTrue(testLink.getScore() == 420);
 		
 	}@Test
 	public void testgetandsetSubReddit(){		
-		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date);	
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setSubreddit("computers");
 		assertTrue(testLink.getSubreddit() == "computers");
 	}

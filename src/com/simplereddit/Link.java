@@ -45,9 +45,10 @@ public class Link {
 	
 	private Date date;
 	
-
+	private boolean nsfw;
+	
 	public Link(String title, String url, String permaLink, String author,
-			String id, int score, String subreddit, Date date) {
+			String id, int score, String subreddit, Date date, boolean nsfw) {
 		this.title = title;
 		this.url = url;
 		this.permaLink = permaLink;
@@ -56,6 +57,7 @@ public class Link {
 		this.score = score;
 		this.subreddit = subreddit;
 		this.date = date;
+		this.nsfw = nsfw;
 	}
 
 	public String getTitle() {
@@ -132,6 +134,13 @@ public class Link {
 		this.date = date;
 	}
 
+	public boolean isNsfw() {
+		return nsfw;
+	}
+
+	public void setNsfw(boolean nsfw) {
+		this.nsfw = nsfw;
+	}
 
 	public boolean equals(Link link){
 		if((this.title.equals(link.title)) && (this.url.equals(link.url))){
@@ -139,4 +148,6 @@ public class Link {
 		}
 		return false;
 	}
+	
+	
 }

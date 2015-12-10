@@ -67,6 +67,8 @@ public class SimpleRedditModel {
 	
 	private ArrayList<Link> savedLinks;
 
+	private ArrayList<String> customRedditList;
+	
 	/**
 	 * If we are browsing the top links of the hour or not
 	 */
@@ -96,11 +98,12 @@ public class SimpleRedditModel {
 	 * If we are browisng the top links of all time or not
 	 */
 	private boolean topAll;
-
+	
 	public SimpleRedditModel() {
 		this.links = new ArrayList<Link>();
 		this.linkCount = 0;
 		this.savedLinks = new ArrayList<Link>();
+		this.customRedditList = new ArrayList<String>();
 		setAllTopSortsToFalse();
 		writeToHeadersFile("User-Agent:desktop:com.simplereddit:v0.1");
 		retrieveFrontPage();
@@ -157,7 +160,23 @@ public class SimpleRedditModel {
 		System.out.println("Getting subreddit: " + subreddit);
 	}
 	
+	public void getRandomSubreddit(){
+		resetLinks();
+		setAllTopSortsToFalse();
+		currentPath = "/r/random";
+		String randomSubredditJSONString = retrievePageWithoutParams();
+		JSONObject page = new JSONObject(randomSubredditJSONString);
+		currentSubreddit = page.getJSONObject("data").getJSONArray("children").getJSONObject(0).getJSONObject("data").getString("subreddit");
+		addPageToLinkArray(page);
+		currentLinkIndex = 0;
+		currentLink = links.get(currentLinkIndex);
+		System.out.println("Got random subreddit");
+	}
+	
+	// TODO Filter NSFW posts
 
+	
+	
 	public String getCurrentSubreddit() {
 		return currentSubreddit;
 	}
@@ -541,6 +560,50 @@ public class SimpleRedditModel {
 		savedLinks.add(currentLink);
 	}
 	
+	public void clearSavedLinks(){
+		savedLinks.clear();
+	}
+	
+	/**
+	 * Save the current link to the list of saved subreddits
+	 */
+	public void saveCurrentSubreddit(){
+		customRedditList.add(currentLink.getSubreddit());
+	}
+	
+	public void deleteFromCustomSubreddits(String subreddit){
+		int indexOf = customRedditList.indexOf(subreddit);
+		customRedditList.remove(indexOf);
+	}
+	
+	public void clearCustomSubreddits(){
+		customRedditList.clear();
+	}
+	
+	public void retrieveCustomSubreddit(){
+		if(customRedditList.size() == 0){
+			retrieveFrontPage();
+			return;
+		}
+		resetLinks();
+		setAllTopSortsToFalse();
+		String subreddit = "";
+		for(int i = 0; i < customRedditList.size(); i++){
+			subreddit += customRedditList.get(i);
+			if(i != customRedditList.size() - 1){
+				subreddit += "+";
+			}
+		}
+		currentSubreddit = subreddit;
+		currentPath = "/r/" + subreddit;
+		String subredditJSONString = retrievePageWithoutParams();
+		JSONObject page = new JSONObject(subredditJSONString);
+		addPageToLinkArray(page);
+		currentLinkIndex = 0;
+		currentLink = links.get(currentLinkIndex);
+		System.out.println("Getting subreddit: " + subreddit);
+	}
+	
 	/**
 	 * Returns the list of saved links
 	 */
@@ -578,7 +641,8 @@ public class SimpleRedditModel {
 		int score = jsonLinkData.getInt("score");
 		String subreddit = jsonLinkData.getString("subreddit");
 		Date date = convertToDate(jsonLinkData);
-		Link link = new Link(title, url, permaLink, author, id, score, subreddit, date);
+		boolean nsfw = jsonLinkData.getBoolean("over_18");
+		Link link = new Link(title, url, permaLink, author, id, score, subreddit, date, nsfw);
 		return link;
 	}
 
