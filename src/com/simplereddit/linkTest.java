@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import com.simplereddit.Link;
 
-
 public class linkTest {
 
 	String test = "Test";
@@ -92,5 +91,12 @@ public class linkTest {
 		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
 		testLink.setSubreddit("computers");
 		assertTrue(testLink.getSubreddit() == "computers");
+	}
+	
+	@Test
+	public void testGetAndSetNSFW(){
+		Link testLink = new Link(test,testUrl ,testPermaLink , author, id, testScore, somesubreddit, date, false);	
+		testLink.setNsfw(true);
+		assertTrue(testLink.isNsfw());
 	}
 }

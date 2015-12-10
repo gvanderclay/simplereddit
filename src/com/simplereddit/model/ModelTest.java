@@ -8,6 +8,7 @@ import com.simplereddit.Link;
 
 /**
  * Class that tests the simpleredditmodel class
+ * 
  * @author Gage and Kevin
  *
  */
@@ -20,9 +21,17 @@ public class ModelTest {
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
 	}
+	
+	@Test
+	public void testAtSecondLinkAfterHot() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getHotLinks();
+		assertTrue(model.getLinks().get(1).getScore() >= 0);
+		waitOneSecond();
+	}
 
 	@Test
-	public void testGetHotOfSubreddit(){
+	public void testGetHotOfSubreddit() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("videos");
 		model.getHotLinks();
@@ -79,9 +88,25 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testNewFromSubreddit(){
+	public void testNewFromSubreddit() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("videos");
+		model.getNewLinks();
+		assertTrue(model.atFirstLink());
+	}
+	
+	@Test
+	public void testNewFromSubreddit2() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("hiphopheads");
+		model.getNewLinks();
+		assertTrue(model.atFirstLink());
+	}
+	
+	@Test
+	public void testNewFromSubreddit3() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("trees");
 		model.getNewLinks();
 		assertTrue(model.atFirstLink());
 	}
@@ -112,14 +137,14 @@ public class ModelTest {
 		SimpleRedditModel model = new SimpleRedditModel();
 		for (int i = 0; i < 50; i++) {
 			model.getNextLink();
-			if(i % 2 == 0){
+			if (i % 2 == 0) {
 				waitOneSecond();
 			}
 		}
 		for (int i = 0; i < 50; i++) {
 			Link prevLink = model.getPreviousLink();
 			assertTrue(prevLink == model.getCurrentLink());
-			if(i % 2 == 0){
+			if (i % 2 == 0) {
 				waitOneSecond();
 			}
 		}
@@ -152,6 +177,7 @@ public class ModelTest {
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
 	}
+	
 
 	@Test
 	public void testGetTopDayLinks() {
@@ -201,11 +227,29 @@ public class ModelTest {
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
 	}
+	
+	@Test
+	public void testGetTopHourLinksSubreddit2() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("ooer");
+		model.getTopHourLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
 
 	@Test
 	public void testGetTopDayLinksSubreddit() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveSubreddit("sports");
+		model.getTopDayLinks();
+		assertTrue(model.atFirstLink());
+		waitOneSecond();
+	}
+	
+	@Test
+	public void testGetTopDayLinksSubreddit2() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveSubreddit("overwatch");
 		model.getTopDayLinks();
 		assertTrue(model.atFirstLink());
 		waitOneSecond();
@@ -258,24 +302,75 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testSavingLinks(){
+	public void testSavingLinks() {
 		SimpleRedditModel model = new SimpleRedditModel();
 		model.retrieveFrontPage();
-		for(int i = 0; i < 25; i++){
+		for (int i = 0; i < 25; i++) {
 			model.saveCurrentLink();
 			model.getNextLink();
 		}
 		model.switchToSavedLinks();
-		for(int i = 0; i < 25; i++){
+		for (int i = 0; i < 25; i++) {
 			assertTrue(model.getCurrentLink().equals(model.getSavedLinks().get(i)));
 			model.getNextSavedLink();
 		}
-		for(int i = 24; i >= 0; i--){
+		for (int i = 24; i >= 0; i--) {
 			assertTrue(model.getCurrentLink().equals(model.getSavedLinks().get(i)));
 			model.getPrevSavedLink();
 		}
 	}
 
+	@Test
+	public void testClearingLinks() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveFrontPage();
+		for (int i = 0; i < 25; i++) {
+			model.saveCurrentLink();
+			model.getNextLink();
+		}
+		
+		model.clearSavedLinks();
+		System.out.println(model.getSavedLinks());
+		assertTrue(model.getSavedLinks().isEmpty());
+	}
+
+	@Test
+	public void testSavingSubreddits() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveFrontPage();
+		for (int i = 0; i < 25; i++) {
+			model.saveCurrentSubreddit();
+		}
+	}
+
+	@Test
+	public void testClearSubreddits() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveFrontPage();
+		for (int i = 0; i < 25; i++) {
+			model.saveCurrentSubreddit();
+		}
+		model.clearCustomSubreddits();
+	}
+
+	@Test
+	public void testRetrieveCustomSubreddit() {
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.retrieveFrontPage();
+		for (int i = 0; i < 25; i++) {
+			model.saveCurrentSubreddit();
+		}
+		model.retrieveCustomSubreddit();
+		assertFalse(model.getLinks().isEmpty());
+	}
+
+	@Test
+	public void testRandomSubreddit(){
+		SimpleRedditModel model = new SimpleRedditModel();
+		model.getRandomSubreddit();
+		assertFalse(model.getLinks().isEmpty());
+	}
+	
 	private void waitOneSecond() {
 		try {
 			Thread.sleep(1000);

@@ -1,38 +1,275 @@
-* b05db52 : changed the go to previous after next test
-*   655dadb : pls fix
-|\  
-| *   592a8d9 : more tests
-| |\  
-| * | c5c384b : added the subreddit sort tests
-* | | e1d43e8 : some tests
-| |/  
-|/|   
-* | fdf6128 : added more tests
-|/  
-* f7f3f75 : added some more tests and the waitOneSecondMethod()
-*   53b1fa1 : fix some merge conflicts
-|\  
-| * 4b5176d : added top tests
-* | bd5e088 : added some stuff
-|/  
-* d278753 : added more tests
-* e0eeee8 : added more tests
-* c90fc47 : fixed some spelling errors
-*   addf69e : added some tests
-|\  
-| * cf9cdb1 : added test for first link after all links and hot links
-* | 2574da6 : added some tests
-|/  
-* 9195b4c : adding test case for the model class
-* 3bfa0c6 : Added the button to the GUI to get the links from all
-* 8a21693 : ADDED MORE FUNCTIONALTY
-* 3b62c82 : Controller.java deleted online with Bitbucket
-* 5daecaf : added the gitignore file
-* f9ba349 : Going forward and backward between links now works.
-* 06d3bdb : removed the MyBrowser class and the package it was contained in since it is no longer needed
-* 69820e9 : changed the name of the test.fxml to SimpleRedditView.fxml
-* fbab304 : The app can now load the first link of reddit right when it starts and the layout looks better
-* 139a831 : stuff
-* 5dec776 : added the resource file from the old simplereddit project
-* 3cc935e : made some changes to the gui
-* fab1d74 : initial commit
+* commit 940d77c (HEAD -> master, origin/master, origin/HEAD)
+| Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| Date:   67 minutes ago
+| 
+|     added the features for saving subreddits viewing a random subreddit, and filtering nsfw links
+|  
+* commit 1e442b9
+| Author: Kevin <tarquink@mail.gvsu.edu>
+| Date:   26 hours ago
+| 
+|     Added the tests for the link class
+|    
+*   commit d4d0f00
+|\  Merge: dd1f124 9660da3
+| | Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| | Date:   4 weeks ago
+| | 
+| |     Merge branch 'master' of https://bitbucket.org/gvanderclay/simpleredditfx
+| |   
+| * commit 9660da3
+| | Author: Kevin <tarquink@mail.gvsu.edu>
+| | Date:   4 weeks ago
+| | 
+| |     Added some documentation
+| |   
+* | commit dd1f124
+|/  Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+|   Date:   4 weeks ago
+|   
+|       Some tests added
+|  
+* commit 6438240
+| Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| Date:   4 weeks ago
+| 
+|     can now save links and later view the saved links
+|  
+* commit 6277b16
+| Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| Date:   4 weeks ago
+| 
+|     some work on saving links has been done
+|  
+* commit c3110bd
+| Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| Date:   4 weeks ago
+| 
+|     comments button now works
+|  
+* commit eefa539
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   4 weeks ago
+| 
+|     Changes to ui sizing and add save handling button
+|    
+*   commit f4f80d6
+|\  Merge: 0e6c00c 30f1b52
+| | Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| | Date:   4 weeks ago
+| | 
+| |     Merge branch 'master' of https://bitbucket.org/gvanderclay/simpleredditfx
+| |   
+| * commit 30f1b52
+| | Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| | Date:   4 weeks ago
+| | 
+| |     remove ayylmao.html
+| |   
+* | commit 0e6c00c
+| | Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| | Date:   4 weeks ago
+| | 
+| |     arrow keys switch between links
+| |   
+* | commit c39aec7
+|/  Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+|   Date:   4 weeks ago
+|   
+|       Left and right arrow buttons take you to previous and next links respectively
+|  
+* commit 09b068b
+| Author: Gage Vander Clay <BlueFedora@localhost.localdomain>
+| Date:   4 weeks ago
+| 
+|     View title in a different location. Score, author, and post date are now shown in the titlebar
+|  
+* commit ed8e652
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   7 weeks ago
+| 
+|     README.md edited online with Bitbucket
+|  
+* commit 7578c1c
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     added documentation
+|  
+* commit b05db52
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     changed the go to previous after next test
+|    
+*   commit 655dadb
+|\  Merge: e1d43e8 592a8d9
+| | Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| | Date:   8 weeks ago
+| | 
+| |     pls fix
+| |     
+| *   commit 592a8d9
+| |\  Merge: c5c384b fdf6128
+| | | Author: Kevin <tarquink@mail.gvsu.edu>
+| | | Date:   8 weeks ago
+| | | 
+| | |     more tests
+| | |    
+| * | commit c5c384b
+| | | Author: Kevin <tarquink@mail.gvsu.edu>
+| | | Date:   8 weeks ago
+| | | 
+| | |     added the subreddit sort tests
+| | |    
+* | | commit e1d43e8
+| |/  Author: Gage Vander Clay <gvanderclay@yahoo.com>
+|/|   Date:   8 weeks ago
+| |   
+| |       some tests
+| |   
+* | commit fdf6128
+|/  Author: Gage Vander Clay <gvanderclay@yahoo.com>
+|   Date:   8 weeks ago
+|   
+|       added more tests
+|  
+* commit f7f3f75
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     added some more tests and the waitOneSecondMethod()
+|    
+*   commit 53b1fa1
+|\  Merge: bd5e088 4b5176d
+| | Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| | Date:   8 weeks ago
+| | 
+| |     fix some merge conflicts
+| |   
+| * commit 4b5176d
+| | Author: Kevin <tarquink@mail.gvsu.edu>
+| | Date:   8 weeks ago
+| | 
+| |     added top tests
+| |   
+* | commit bd5e088
+|/  Author: Gage Vander Clay <gvanderclay@yahoo.com>
+|   Date:   8 weeks ago
+|   
+|       added some stuff
+|  
+* commit d278753
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     added more tests
+|  
+* commit e0eeee8
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     added more tests
+|  
+* commit c90fc47
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     fixed some spelling errors
+|    
+*   commit addf69e
+|\  Merge: 2574da6 cf9cdb1
+| | Author: Kevin <tarquink@mail.gvsu.edu>
+| | Date:   8 weeks ago
+| | 
+| |     added some tests
+| |   
+| * commit cf9cdb1
+| | Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| | Date:   8 weeks ago
+| | 
+| |     added test for first link after all links and hot links
+| |   
+* | commit 2574da6
+|/  Author: Kevin <tarquink@mail.gvsu.edu>
+|   Date:   8 weeks ago
+|   
+|       added some tests
+|  
+* commit 9195b4c
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     adding test case for the model class
+|  
+* commit 3bfa0c6
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     Added the button to the GUI to get the links from all
+|  
+* commit 8a21693
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   8 weeks ago
+| 
+|     ADDED MORE FUNCTIONALTY
+|  
+* commit 3b62c82
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     Controller.java deleted online with Bitbucket
+|  
+* commit 5daecaf
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     added the gitignore file
+|  
+* commit f9ba349
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     Going forward and backward between links now works.
+|  
+* commit 06d3bdb
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     removed the MyBrowser class and the package it was contained in since it is no longer needed
+|  
+* commit 69820e9
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     changed the name of the test.fxml to SimpleRedditView.fxml
+|  
+* commit fbab304
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     The app can now load the first link of reddit right when it starts and the layout looks better
+|  
+* commit 139a831
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     stuff
+|  
+* commit 5dec776
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     added the resource file from the old simplereddit project
+|  
+* commit 3cc935e
+| Author: Gage Vander Clay <gvanderclay@yahoo.com>
+| Date:   9 weeks ago
+| 
+|     made some changes to the gui
+|  
+* commit fab1d74
+  Author: Gage Vander Clay <gvanderclay@yahoo.com>
+  Date:   9 weeks ago
+  
+      initial commit

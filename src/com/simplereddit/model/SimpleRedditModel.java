@@ -64,11 +64,17 @@ public class SimpleRedditModel {
 	 * Index of the currentLink in the links array
 	 */
 	private int currentLinkIndex;
-	
+
+	/**
+	 * Arraylist of saved links
+	 */
 	private ArrayList<Link> savedLinks;
 
+	/**
+	 * Arraylist of strings of subreddits that will be viewed
+	 */
 	private ArrayList<String> customRedditList;
-	
+
 	/**
 	 * If we are browsing the top links of the hour or not
 	 */
@@ -98,7 +104,7 @@ public class SimpleRedditModel {
 	 * If we are browisng the top links of all time or not
 	 */
 	private boolean topAll;
-	
+
 	public SimpleRedditModel() {
 		this.links = new ArrayList<Link>();
 		this.linkCount = 0;
@@ -111,15 +117,8 @@ public class SimpleRedditModel {
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
 	}
-	
-	public static void main(String args[]){
-		new SimpleRedditModel().login("gvanderclay", "gatorade");
-	}
 
-	public void login(String username, String password) {
-		writeToParamsFile("user:" + username, "passwd:" + password, "api_type:json");
-		http.postHttp(SimpleRedditConstants.REDDIT_URL, "/api/login/" + username, SimpleRedditConstants.PARAMS_FILE,
-				SimpleRedditConstants.EMPTY_FILE, SimpleRedditConstants.HEADERS_FILE);
+	public static void main(String args[]) {
 	}
 
 	/**
@@ -128,7 +127,6 @@ public class SimpleRedditModel {
 	 */
 	public void retrieveFrontPage() {
 		// clear the links in the links array
-		login("gvanderclay", "gatorade");
 		resetLinks();
 		setAllTopSortsToFalse();
 		currentSubreddit = "";
@@ -159,24 +157,24 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 		System.out.println("Getting subreddit: " + subreddit);
 	}
-	
-	public void getRandomSubreddit(){
+
+	/**
+	 * Get a random subreddit
+	 */
+	public void getRandomSubreddit() {
 		resetLinks();
 		setAllTopSortsToFalse();
 		currentPath = "/r/random";
 		String randomSubredditJSONString = retrievePageWithoutParams();
 		JSONObject page = new JSONObject(randomSubredditJSONString);
-		currentSubreddit = page.getJSONObject("data").getJSONArray("children").getJSONObject(0).getJSONObject("data").getString("subreddit");
+		currentSubreddit = page.getJSONObject("data").getJSONArray("children").getJSONObject(0).getJSONObject("data")
+				.getString("subreddit");
 		addPageToLinkArray(page);
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
 		System.out.println("Got random subreddit");
 	}
-	
-	// TODO Filter NSFW posts
 
-	
-	
 	public String getCurrentSubreddit() {
 		return currentSubreddit;
 	}
@@ -198,38 +196,38 @@ public class SimpleRedditModel {
 		currentLinkIndex = 0;
 		currentLink = links.get(currentLinkIndex);
 	}
-	
+
 	/**
 	 * Switching to viewing saved links from normal links
 	 */
-	
-	public void switchToSavedLinks(){
-		if(savedLinks.isEmpty()){}
-		else{
+
+	public void switchToSavedLinks() {
+		if (savedLinks.isEmpty()) {
+		} else {
 			currentLinkIndex = 0;
 			currentLink = savedLinks.get(currentLinkIndex);
 		}
 	}
-	
+
 	/**
 	 * Gets the previous saved link
 	 */
-	
-	public void getPrevSavedLink(){
-		if(currentLinkIndex == 0){}
-		else{
+
+	public void getPrevSavedLink() {
+		if (currentLinkIndex == 0) {
+		} else {
 			currentLinkIndex--;
 			currentLink = savedLinks.get(currentLinkIndex);
 		}
 	}
-	
+
 	/**
 	 * Gets the next saved link
 	 */
-	
-	public void getNextSavedLink(){
-		if(currentLinkIndex >= savedLinks.size() - 1){}
-		else{
+
+	public void getNextSavedLink() {
+		if (currentLinkIndex >= savedLinks.size() - 1) {
+		} else {
 			currentLinkIndex++;
 			currentLink = savedLinks.get(currentLinkIndex);
 		}
@@ -464,8 +462,6 @@ public class SimpleRedditModel {
 		JSONObject page = new JSONObject(nextPageJSONString);
 		addPageToLinkArray(page);
 	}
-	
-	
 
 	/**
 	 * Gets the page that is before the current page. If there is not a current
@@ -555,42 +551,49 @@ public class SimpleRedditModel {
 	/**
 	 * Saves the current link of the page
 	 */
-	
-	public void saveCurrentLink(){
+	public void saveCurrentLink() {
 		savedLinks.add(currentLink);
 	}
-	
-	public void clearSavedLinks(){
+
+	/**
+	 * Clear the saved links
+	 */
+	public void clearSavedLinks() {
 		savedLinks.clear();
 	}
-	
+
 	/**
 	 * Save the current link to the list of saved subreddits
 	 */
-	public void saveCurrentSubreddit(){
-		customRedditList.add(currentLink.getSubreddit());
+	public void saveCurrentSubreddit() {
+		if (customRedditList.contains(currentLink.getSubreddit())) {
+
+		} else {
+			customRedditList.add(currentLink.getSubreddit());
+		}
 	}
-	
-	public void deleteFromCustomSubreddits(String subreddit){
-		int indexOf = customRedditList.indexOf(subreddit);
-		customRedditList.remove(indexOf);
-	}
-	
-	public void clearCustomSubreddits(){
+
+	/**
+	 * Clear the custom subreddits from the array
+	 */
+	public void clearCustomSubreddits() {
 		customRedditList.clear();
 	}
-	
-	public void retrieveCustomSubreddit(){
-		if(customRedditList.size() == 0){
+
+	/**
+	 * Set the custom subreddits as the current subreddit and retrieve them
+	 */
+	public void retrieveCustomSubreddit() {
+		if (customRedditList.size() == 0) {
 			retrieveFrontPage();
 			return;
 		}
 		resetLinks();
 		setAllTopSortsToFalse();
 		String subreddit = "";
-		for(int i = 0; i < customRedditList.size(); i++){
+		for (int i = 0; i < customRedditList.size(); i++) {
 			subreddit += customRedditList.get(i);
-			if(i != customRedditList.size() - 1){
+			if (i != customRedditList.size() - 1) {
 				subreddit += "+";
 			}
 		}
@@ -603,14 +606,14 @@ public class SimpleRedditModel {
 		currentLink = links.get(currentLinkIndex);
 		System.out.println("Getting subreddit: " + subreddit);
 	}
-	
+
 	/**
 	 * Returns the list of saved links
 	 */
-	public ArrayList<Link> getSavedLinks(){
+	public ArrayList<Link> getSavedLinks() {
 		return this.savedLinks;
 	}
-	
+
 	/**
 	 * Adds a page of reddit to the link array
 	 *
@@ -646,6 +649,12 @@ public class SimpleRedditModel {
 		return link;
 	}
 
+	/**
+	 * Convert part of a reddit link in json to a date
+	 * 
+	 * @param jsonLink
+	 * @return
+	 */
 	private Date convertToDate(JSONObject jsonLink) {
 		long millis = jsonLink.getLong("created_utc");
 		Date date = new Date((long) 1000 * millis);

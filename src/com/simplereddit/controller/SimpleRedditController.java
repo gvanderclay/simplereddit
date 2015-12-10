@@ -1,14 +1,10 @@
 package com.simplereddit.controller;
 
-import java.awt.Desktop;
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 
 import com.simplereddit.Link;
 import com.simplereddit.SimpleRedditConstants;
 import com.simplereddit.model.SimpleRedditModel;
-import com.sun.org.apache.xml.internal.utils.NSInfo;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -85,7 +81,7 @@ public class SimpleRedditController {
 
 	@FXML
 	private Button randBtn;
-	
+
 	@FXML
 	private Label titleLabel;
 
@@ -100,7 +96,7 @@ public class SimpleRedditController {
 
 	@FXML
 	private Button nsfwFilterBtn;
-	
+
 	@FXML
 	private MenuItem saveLinkBtn;
 
@@ -109,17 +105,28 @@ public class SimpleRedditController {
 
 	@FXML
 	private MenuItem saveSubredditBtn;
-	
+
 	@FXML
 	private MenuItem customSubredditBtn;
-	
+
 	@FXML
 	private Menu deleteSubredditMenu;
-	
+
+	/**
+	 * When true you are looking at a links contents. When false you are looking
+	 * at the links comments
+	 */
 	private boolean atPage;
 
+	/**
+	 * When true you are looking at saved links, when false you are looking at a
+	 * normal view
+	 */
 	private boolean viewingSavedLinks;
 
+	/**
+	 * When true you are filtering nsfw links when false you are not filtering nsfw links
+	 */
 	private boolean filterNSFW;
 
 	@FXML
@@ -169,28 +176,26 @@ public class SimpleRedditController {
 	void getFrontPage(ActionEvent event) {
 		getFrontPage();
 	}
-	
-	private void getFrontPage(){
+
+	private void getFrontPage() {
 		viewingSavedLinks = false;
 		model.retrieveFrontPage();
 		updateWebEngine();
 	}
 
 	@FXML
-	void toggleNSFWFilter(){
+	void toggleNSFWFilter() {
 		filterNSFW = !filterNSFW;
-		
-		if(filterNSFW){
+
+		if (filterNSFW) {
 			nsfwFilterBtn.setText("NSFW On");
-		}
-		else{
+		} else {
 			nsfwFilterBtn.setText("NSFW Off");
 		}
-		
+
 		updateWebEngine();
 	}
-	
-	
+
 	@FXML
 	void getHotLinks(ActionEvent event) {
 		viewingSavedLinks = false;
@@ -278,30 +283,30 @@ public class SimpleRedditController {
 		updateWebEngine();
 		viewingSavedLinks = true;
 	}
-	
+
 	@FXML
-	void resetSavedLinks(ActionEvent event){
+	void resetSavedLinks(ActionEvent event) {
 		model.clearSavedLinks();
 		getFrontPage();
 	}
 
 	@FXML
-	void saveCurrentSubreddit(){
+	void saveCurrentSubreddit() {
 		model.saveCurrentSubreddit();
 	}
-	
+
 	@FXML
-	void viewCustomSubreddits(){
+	void viewCustomSubreddits() {
 		model.retrieveCustomSubreddit();
 		updateWebEngine();
 	}
-	
+
 	@FXML
-	void resetCustomSubreddits(){
+	void resetCustomSubreddits() {
 		model.clearCustomSubreddits();
 		getFrontPage();
 	}
-	
+
 	/**
 	 * If SimpleReddit is looking at the links then the comments button is
 	 * available once the comments button is pressed the model goes to the
@@ -328,11 +333,11 @@ public class SimpleRedditController {
 	}
 
 	@FXML
-	void getRandomSubreddit(){
+	void getRandomSubreddit() {
 		model.getRandomSubreddit();
 		updateWebEngine();
 	}
-	
+
 	/**
 	 * Makes the web browser usable for the GUI. Makes the JLabel on the front
 	 * of the GUI change whenever the link is changeed
